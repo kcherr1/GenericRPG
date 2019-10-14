@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace GenericRPG.code {
+namespace GameLibrary {
   public struct Position {
     public int row;
     public int col;

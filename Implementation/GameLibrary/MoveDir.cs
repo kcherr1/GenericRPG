@@ -1,4 +1,4 @@
-﻿namespace GenericRPG.code {
+﻿namespace GameLibrary {
   public enum MoveDir {
     NO_MOVE,
     UP,

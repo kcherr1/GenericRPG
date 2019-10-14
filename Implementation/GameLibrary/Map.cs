@@ -1,8 +1,9 @@
-﻿using GenericRPG.Properties;
-using System.IO;
+﻿using System.IO;
 using System.Windows.Forms;
+using System;
+using System.Drawing;
 
-namespace GenericRPG.code {
+namespace GameLibrary {
   public class Map {
     private int[,] layout;
     private const int NUM_ROWS = 4;
@@ -11,7 +12,7 @@ namespace GenericRPG.code {
     private const int BOUNDARY_PAD = 5;
     private const int BLOCK_SIZE = 50;
 
-    public Character LoadMap(string mapFile, GroupBox grpMap) {
+    public Character LoadMap(string mapFile, GroupBox grpMap, Func<string, Bitmap> LoadImg) {
       int top = TOP_PAD;
       int left = BOUNDARY_PAD;
       layout = new int[NUM_ROWS, NUM_COLS];
@@ -22,7 +23,7 @@ namespace GenericRPG.code {
             for (int c = 0; c < NUM_COLS; c++) {
               int val = sr.Read() - '0';
               layout[r, c] = val;
-              PictureBox pb = CreateMapCell(val);
+              PictureBox pb = CreateMapCell(val, LoadImg);
               if (pb != null) {
                 pb.Top = top;
                 pb.Left = left;
@@ -44,7 +45,7 @@ namespace GenericRPG.code {
       return character;
     }
 
-    private PictureBox CreateMapCell(int legendValue) {
+    private PictureBox CreateMapCell(int legendValue, Func<string, Bitmap> LoadImg) {
       PictureBox result = null;
       switch (legendValue) {
         // walkable
@@ -54,7 +55,7 @@ namespace GenericRPG.code {
         // wall
         case 1:
           result = new PictureBox() {
-            BackgroundImage = Resources.wall,
+            BackgroundImage = LoadImg("wall"),
             BackgroundImageLayout = ImageLayout.Stretch,
             Width = BLOCK_SIZE,
             Height = BLOCK_SIZE
@@ -63,7 +64,7 @@ namespace GenericRPG.code {
 
         case 2:
           result = new PictureBox() {
-            BackgroundImage = Resources.character,
+            BackgroundImage = LoadImg("character"),
             BackgroundImageLayout = ImageLayout.Stretch,
             Width = BLOCK_SIZE,
             Height = BLOCK_SIZE

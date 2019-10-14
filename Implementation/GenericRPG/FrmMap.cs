@@ -1,4 +1,4 @@
-﻿using GenericRPG.code;
+﻿using GameLibrary;
 using GenericRPG.Properties;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,9 @@ namespace GenericRPG {
     private void Form1_Load(object sender, EventArgs e) {
       //player = new Character();\
       map = new Map();
-      character = map.LoadMap("Resources/level.txt", grpMap);
+      character = map.LoadMap("Resources/level.txt", grpMap, 
+        str => Resources.ResourceManager.GetObject(str) as Bitmap
+        );
     }
 
     private void Form1_KeyDown(object sender, KeyEventArgs e) {

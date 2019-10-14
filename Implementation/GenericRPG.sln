@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenericRPG", "GenericRPG\GenericRPG.csproj", "{F5AE957E-13DC-4E22-A3E0-7FF19A9535CD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\GameLibrary.csproj", "{0B5F0B18-18D0-43A4-8705-C25E033EC0BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{F5AE957E-13DC-4E22-A3E0-7FF19A9535CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5AE957E-13DC-4E22-A3E0-7FF19A9535CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5AE957E-13DC-4E22-A3E0-7FF19A9535CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B5F0B18-18D0-43A4-8705-C25E033EC0BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B5F0B18-18D0-43A4-8705-C25E033EC0BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B5F0B18-18D0-43A4-8705-C25E033EC0BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B5F0B18-18D0-43A4-8705-C25E033EC0BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
