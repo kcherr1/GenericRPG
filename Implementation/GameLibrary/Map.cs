@@ -73,6 +73,8 @@ namespace GameLibrary {
       // resize Group
       grpMap.Width = NumCols * BLOCK_SIZE + BOUNDARY_PAD * 2;
       grpMap.Height = NumRows * BLOCK_SIZE + TOP_PAD + BOUNDARY_PAD;
+      grpMap.Top = 5;
+      grpMap.Left = 5;
 
       // initialize for game
       encounterChance = 0.15;

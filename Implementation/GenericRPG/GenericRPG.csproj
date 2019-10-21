@@ -60,6 +60,12 @@
     <Compile Include="FrmGameOver.Designer.cs">
       <DependentUpon>FrmGameOver.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmLevelUp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLevelUp.Designer.cs">
+      <DependentUpon>FrmLevelUp.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmMap.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FrmGameOver.resx">
       <DependentUpon>FrmGameOver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLevelUp.resx">
+      <DependentUpon>FrmLevelUp.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmMap.resx">
       <DependentUpon>FrmMap.cs</DependentUpon>
@@ -110,6 +119,8 @@
     <None Include="Resources\enemy.png" />
     <None Include="Resources\fightboss.png" />
     <None Include="Resources\gameover.jpg" />
+    <None Include="Resources\character-levelup.jpg" />
+    <None Include="Resources\character-levelup-animation.gif" />
     <Content Include="Resources\level.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
