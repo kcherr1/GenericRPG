@@ -42,9 +42,10 @@
       this.ClientSize = new System.Drawing.Size(998, 529);
       this.Controls.Add(this.grpMap);
       this.Name = "FrmMap";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Map";
-      this.Load += new System.EventHandler(this.Form1_Load);
-      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+      this.Load += new System.EventHandler(this.FrmMap_Load);
+      this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FrmMap_KeyDown);
       this.ResumeLayout(false);
 
     }

@@ -1,34 +1,30 @@
 ﻿using GameLibrary;
 using GenericRPG.Properties;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace GenericRPG {
   public partial class FrmMap : Form {
     private Character character;
-    private Map map = null;
+    private Map map;
+    private Game game;
 
     public FrmMap() {
       InitializeComponent();
     }
 
-    private void Form1_Load(object sender, EventArgs e) {
-      //player = new Character();\
+    private void FrmMap_Load(object sender, EventArgs e) {
+      game = Game.GetGame();
+
       map = new Map();
       character = map.LoadMap("Resources/level.txt", grpMap, 
         str => Resources.ResourceManager.GetObject(str) as Bitmap
-        );
+      );
+      game.SetCharacter(character);
     }
 
-    private void Form1_KeyDown(object sender, KeyEventArgs e) {
+    private void FrmMap_KeyDown(object sender, KeyEventArgs e) {
       MoveDir dir = MoveDir.NO_MOVE;
       switch (e.KeyCode) {
         case Keys.Left:
@@ -44,9 +40,13 @@ namespace GenericRPG {
           dir = MoveDir.DOWN;
           break;
       }
-      if (dir != MoveDir.NO_MOVE)
+      if (dir != MoveDir.NO_MOVE) {
         character.Move(dir);
+        if (game.State == GameState.FIGHTING) {
+          FrmArena frmArena = new FrmArena();
+          frmArena.Show();
+        }
+      }
     }
   }
 }
-

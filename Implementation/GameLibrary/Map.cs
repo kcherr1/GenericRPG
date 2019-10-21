@@ -2,46 +2,84 @@
 using System.Windows.Forms;
 using System;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace GameLibrary {
   public class Map {
     private int[,] layout;
-    private const int NUM_ROWS = 4;
-    private const int NUM_COLS = 4;
     private const int TOP_PAD = 10;
     private const int BOUNDARY_PAD = 5;
     private const int BLOCK_SIZE = 50;
+    public double encounterChance;
+    private Random rand;
 
+    public int CharacterStartRow { get; private set; }
+    public int CharacterStartCol { get; private set; }
+    private int NumRows { get { return layout.GetLength(0); } }
+    private int NumCols { get { return layout.GetLength(1); } }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mapFile"></param>
+    /// <param name="grpMap"></param>
+    /// <param name="LoadImg"></param>
+    /// <returns></returns>
     public Character LoadMap(string mapFile, GroupBox grpMap, Func<string, Bitmap> LoadImg) {
+      // declare and initialize locals
       int top = TOP_PAD;
       int left = BOUNDARY_PAD;
-      layout = new int[NUM_ROWS, NUM_COLS];
       Character character = null;
+      List<string> mapLines = new List<string>();
+
+      // read from map file
       using (FileStream fs = new FileStream(mapFile, FileMode.Open)) {
         using (StreamReader sr = new StreamReader(fs)) {
-          for (int r = 0; r < NUM_ROWS; r++) {
-            for (int c = 0; c < NUM_COLS; c++) {
-              int val = sr.Read() - '0';
-              layout[r, c] = val;
-              PictureBox pb = CreateMapCell(val, LoadImg);
-              if (pb != null) {
-                pb.Top = top;
-                pb.Left = left;
-                grpMap.Controls.Add(pb);
-              }
-              if (val == 2) {
-                character = new Character(pb, new Position(r, c), this);
-              }
-              left += 50;
-            }
-            left = BOUNDARY_PAD;
-            top += 50;
-            sr.ReadLine();
+          string line = sr.ReadLine();
+          while (line != null) {
+            mapLines.Add(line);
+            line = sr.ReadLine();
           }
         }
       }
-      grpMap.Width = NUM_COLS * BLOCK_SIZE + BOUNDARY_PAD * 2;
-      grpMap.Height = NUM_ROWS * BLOCK_SIZE + TOP_PAD + BOUNDARY_PAD;
+
+      // load map file into layout and create PictureBox objects
+      layout = new int[mapLines.Count, mapLines[0].Length];
+      int i = 0;
+      foreach (string mapLine in mapLines) {
+        int j = 0;
+        foreach (char c in mapLine) {
+          int val = c - '0';
+          layout[i, j] = (val == 1 ? 1 : 0);
+          PictureBox pb = CreateMapCell(val, LoadImg);
+          if (pb != null) {
+            pb.Top = top;
+            pb.Left = left;
+            grpMap.Controls.Add(pb);
+          }
+          if (val == 2) {
+            CharacterStartRow = i;
+            CharacterStartCol = j;
+            character = new Character(pb, new Position(i, j), this);
+          }
+          left += BLOCK_SIZE;
+          j++;
+        }
+        left = BOUNDARY_PAD;
+        top += BLOCK_SIZE;
+        i++;
+      }
+
+      // resize Group
+      grpMap.Width = NumCols * BLOCK_SIZE + BOUNDARY_PAD * 2;
+      grpMap.Height = NumRows * BLOCK_SIZE + TOP_PAD + BOUNDARY_PAD;
+
+      // initialize for game
+      encounterChance = 0.15;
+      rand = new Random();
+      Game.GetGame().ChangeState(GameState.ON_MAP);
+
+      // return Character object from reading map
       return character;
     }
 
@@ -62,9 +100,40 @@ namespace GameLibrary {
           };
           break;
 
+        // character
         case 2:
           result = new PictureBox() {
             BackgroundImage = LoadImg("character"),
+            BackgroundImageLayout = ImageLayout.Stretch,
+            Width = BLOCK_SIZE,
+            Height = BLOCK_SIZE
+          };
+          break;
+
+        // next level
+        case 3:
+          result = new PictureBox() {
+            BackgroundImage = LoadImg("level2"),
+            BackgroundImageLayout = ImageLayout.Stretch,
+            Width = BLOCK_SIZE,
+            Height = BLOCK_SIZE
+          };
+          break;
+
+        // boss
+        case 4:
+          result = new PictureBox() {
+            BackgroundImage = LoadImg("fightboss"),
+            BackgroundImageLayout = ImageLayout.Stretch,
+            Width = BLOCK_SIZE,
+            Height = BLOCK_SIZE
+          };
+          break;
+
+        // quit
+        case 5:
+          result = new PictureBox() {
+            BackgroundImage = LoadImg("quitgame"),
             BackgroundImageLayout = ImageLayout.Stretch,
             Width = BLOCK_SIZE,
             Height = BLOCK_SIZE
@@ -75,11 +144,19 @@ namespace GameLibrary {
     }
 
     public bool IsValidPos(Position pos) {
-      if (pos.row < 0 || pos.row >= NUM_ROWS ||
-          pos.col < 0 || pos.col >= NUM_COLS ||
+      if (pos.row < 0 || pos.row >= NumRows ||
+          pos.col < 0 || pos.col >= NumCols ||
           layout[pos.row, pos.col] == 1) {
         return false;
       }
+      if (rand.NextDouble() < encounterChance) {
+        encounterChance = 0.15;
+        Game.GetGame().ChangeState(GameState.FIGHTING);
+      }
+      else {
+        encounterChance += 0.10;
+      }
+
       return true;
     }
 

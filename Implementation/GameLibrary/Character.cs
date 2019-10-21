@@ -5,21 +5,57 @@ namespace GameLibrary {
     public int row;
     public int col;
 
+    /// <summary>
+    /// Construct a new 2D position
+    /// </summary>
+    /// <param name="row">Given row or y value</param>
+    /// <param name="col">Given col or x value</param>
     public Position(int row, int col) {
       this.row = row;
       this.col = col;
     }
   }
 
-  public class Character {
+  /// <summary>
+  /// This represents our player in our game
+  /// </summary>
+  public class Character : Mortal {
     public PictureBox Pic { get; private set; }
     private Position pos;
     private Map map;
+    public float XP { get; private set; }
 
-    public Character(PictureBox pb, Position pos, Map map) {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="pb"></param>
+    /// <param name="pos"></param>
+    /// <param name="map"></param>
+    public Character(PictureBox pb, Position pos, Map map) : base("Player 1", 1) {
       Pic = pb;
       this.pos = pos;
       this.map = map;
+    }
+
+    public void GainXP(float amount) {
+      XP += amount;
+
+      // every 100 experience points you gain a level
+      if ((int)XP / 100 >= Level) {
+        LevelUp();
+      }
+    }
+
+    public void BackToStart() {
+      pos.row = map.CharacterStartRow;
+      pos.col = map.CharacterStartCol;
+      Position topleft = map.RowColToTopLeft(pos);
+      Pic.Left = topleft.col;
+      Pic.Top = topleft.row;
+    }
+    public override void ResetStats() {
+      base.ResetStats();
+      XP = 0;
     }
 
     public void Move(MoveDir dir) {
