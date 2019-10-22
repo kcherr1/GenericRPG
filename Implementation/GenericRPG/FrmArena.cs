@@ -58,7 +58,12 @@ namespace GenericRPG {
       lblEnemyHealth.Text = Math.Round(enemy.Health).ToString();
     }
     private void btnSimpleAttack_Click(object sender, EventArgs e) {
+      float prevEnemyHealth = enemy.Health;
       character.SimpleAttack(enemy);
+      float enemyDamage = (float)Math.Round(prevEnemyHealth - enemy.Health);
+      lblEnemyDamage.Text = enemyDamage.ToString();
+      lblEnemyDamage.Visible = true;
+      tmrEnemyDamage.Enabled = true;
       if (enemy.Health <= 0) {
         character.GainXP(enemy.XpDropped);
         lblEndFightMessage.Text = "You Gained " + Math.Round(enemy.XpDropped) + " xp!";
@@ -66,9 +71,18 @@ namespace GenericRPG {
         Refresh();
         Thread.Sleep(1200);
         EndFight();
+        if (character.ShouldLevelUp) {
+          FrmLevelUp frmLevelUp = new FrmLevelUp();
+          frmLevelUp.Show();
+        }
       }
       else {
+        float prevPlayerHealth = character.Health;
         enemy.SimpleAttack(character);
+        float playerDamage = (float)Math.Round(prevPlayerHealth - character.Health);
+        lblPlayerDamage.Text = playerDamage.ToString();
+        lblPlayerDamage.Visible = true;
+        tmrPlayerDamage.Enabled = true;
         if (character.Health <= 0) {
           UpdateStats();
           game.ChangeState(GameState.DEAD);
@@ -96,6 +110,24 @@ namespace GenericRPG {
       else {
         enemy.SimpleAttack(character);
         UpdateStats();
+      }
+    }
+
+    private void tmrPlayerDamage_Tick(object sender, EventArgs e) {
+      lblPlayerDamage.Top -= 2;
+      if (lblPlayerDamage.Top < 10) {
+        lblPlayerDamage.Visible = false;
+        tmrPlayerDamage.Enabled = false;
+        lblPlayerDamage.Top = 52;
+      }
+    }
+
+    private void tmrEnemyDamage_Tick(object sender, EventArgs e) {
+      lblEnemyDamage.Top -= 2;
+      if (lblEnemyDamage.Top < 10) {
+        lblEnemyDamage.Visible = false;
+        tmrEnemyDamage.Enabled = false;
+        lblEnemyDamage.Top = 52;
       }
     }
   }

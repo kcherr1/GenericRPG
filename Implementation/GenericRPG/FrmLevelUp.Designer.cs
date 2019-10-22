@@ -47,8 +47,11 @@
       this.label13 = new System.Windows.Forms.Label();
       this.label14 = new System.Windows.Forms.Label();
       this.lblNewStr = new System.Windows.Forms.Label();
+      this.btnClose = new System.Windows.Forms.Button();
+      this.pictureBox1 = new System.Windows.Forms.PictureBox();
       this.panel1.SuspendLayout();
       this.panel2.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
       this.SuspendLayout();
       // 
       // lblOldLevel
@@ -341,6 +344,26 @@
       this.lblNewStr.TabIndex = 16;
       this.lblNewStr.Text = "label1";
       // 
+      // btnClose
+      // 
+      this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnClose.Location = new System.Drawing.Point(317, 29);
+      this.btnClose.Name = "btnClose";
+      this.btnClose.Size = new System.Drawing.Size(159, 33);
+      this.btnClose.TabIndex = 27;
+      this.btnClose.Text = "Ok, I get it";
+      this.btnClose.UseVisualStyleBackColor = true;
+      this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+      // 
+      // pictureBox1
+      // 
+      this.pictureBox1.Image = global::GenericRPG.Properties.Resources.character_levelup_animation;
+      this.pictureBox1.Location = new System.Drawing.Point(1, 0);
+      this.pictureBox1.Name = "pictureBox1";
+      this.pictureBox1.Size = new System.Drawing.Size(801, 583);
+      this.pictureBox1.TabIndex = 28;
+      this.pictureBox1.TabStop = false;
+      // 
       // FrmLevelUp
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -349,15 +372,19 @@
       this.BackgroundImage = global::GenericRPG.Properties.Resources.character_levelup;
       this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
       this.ClientSize = new System.Drawing.Size(804, 582);
+      this.Controls.Add(this.btnClose);
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
+      this.Controls.Add(this.pictureBox1);
       this.Name = "FrmLevelUp";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Level Up!!";
       this.Load += new System.EventHandler(this.FrmLevelUp_Load);
       this.panel1.ResumeLayout(false);
       this.panel1.PerformLayout();
       this.panel2.ResumeLayout(false);
       this.panel2.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
       this.ResumeLayout(false);
 
     }
@@ -387,5 +414,7 @@
     private System.Windows.Forms.Label label13;
     private System.Windows.Forms.Label label14;
     private System.Windows.Forms.Label lblNewStr;
+    private System.Windows.Forms.Button btnClose;
+    private System.Windows.Forms.PictureBox pictureBox1;
   }
 }

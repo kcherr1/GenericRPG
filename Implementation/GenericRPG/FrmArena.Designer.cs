@@ -23,6 +23,7 @@
     /// the contents of this method with the code editor.
     /// </summary>
     private void InitializeComponent() {
+      this.components = new System.ComponentModel.Container();
       this.lblPlayerHealth = new System.Windows.Forms.Label();
       this.picCharacter = new System.Windows.Forms.PictureBox();
       this.lblPlayerStr = new System.Windows.Forms.Label();
@@ -34,6 +35,8 @@
       this.label4 = new System.Windows.Forms.Label();
       this.lblPlayerName = new System.Windows.Forms.Label();
       this.panel1 = new System.Windows.Forms.Panel();
+      this.label5 = new System.Windows.Forms.Label();
+      this.lblPlayerXp = new System.Windows.Forms.Label();
       this.lblPlayerLevel = new System.Windows.Forms.Label();
       this.label6 = new System.Windows.Forms.Label();
       this.panel2 = new System.Windows.Forms.Panel();
@@ -53,8 +56,10 @@
       this.btnMagicAttack = new System.Windows.Forms.Button();
       this.btnRun = new System.Windows.Forms.Button();
       this.lblEndFightMessage = new System.Windows.Forms.Label();
-      this.label5 = new System.Windows.Forms.Label();
-      this.lblPlayerXp = new System.Windows.Forms.Label();
+      this.lblPlayerDamage = new System.Windows.Forms.Label();
+      this.lblEnemyDamage = new System.Windows.Forms.Label();
+      this.tmrPlayerDamage = new System.Windows.Forms.Timer(this.components);
+      this.tmrEnemyDamage = new System.Windows.Forms.Timer(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.picCharacter)).BeginInit();
       this.panel1.SuspendLayout();
       this.panel2.SuspendLayout();
@@ -166,7 +171,7 @@
       // 
       this.lblPlayerName.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.lblPlayerName.ForeColor = System.Drawing.Color.White;
-      this.lblPlayerName.Location = new System.Drawing.Point(24, 12);
+      this.lblPlayerName.Location = new System.Drawing.Point(3, 12);
       this.lblPlayerName.Name = "lblPlayerName";
       this.lblPlayerName.Size = new System.Drawing.Size(178, 24);
       this.lblPlayerName.TabIndex = 10;
@@ -175,6 +180,7 @@
       // 
       // panel1
       // 
+      this.panel1.Controls.Add(this.lblPlayerDamage);
       this.panel1.Controls.Add(this.label5);
       this.panel1.Controls.Add(this.lblPlayerXp);
       this.panel1.Controls.Add(this.lblPlayerLevel);
@@ -193,6 +199,29 @@
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(227, 396);
       this.panel1.TabIndex = 11;
+      // 
+      // label5
+      // 
+      this.label5.AutoSize = true;
+      this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+      this.label5.Location = new System.Drawing.Point(63, 372);
+      this.label5.Name = "label5";
+      this.label5.Size = new System.Drawing.Size(37, 20);
+      this.label5.TabIndex = 14;
+      this.label5.Text = "XP:";
+      this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      // 
+      // lblPlayerXp
+      // 
+      this.lblPlayerXp.AutoSize = true;
+      this.lblPlayerXp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblPlayerXp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+      this.lblPlayerXp.Location = new System.Drawing.Point(111, 372);
+      this.lblPlayerXp.Name = "lblPlayerXp";
+      this.lblPlayerXp.Size = new System.Drawing.Size(57, 20);
+      this.lblPlayerXp.TabIndex = 13;
+      this.lblPlayerXp.Text = "label1";
       // 
       // lblPlayerLevel
       // 
@@ -219,6 +248,7 @@
       // 
       // panel2
       // 
+      this.panel2.Controls.Add(this.lblEnemyDamage);
       this.panel2.Controls.Add(this.lblEnemyLevel);
       this.panel2.Controls.Add(this.label7);
       this.panel2.Controls.Add(this.lblEnemyName);
@@ -418,28 +448,39 @@
       this.lblEndFightMessage.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
       this.lblEndFightMessage.Visible = false;
       // 
-      // label5
+      // lblPlayerDamage
       // 
-      this.label5.AutoSize = true;
-      this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-      this.label5.Location = new System.Drawing.Point(63, 372);
-      this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(37, 20);
-      this.label5.TabIndex = 14;
-      this.label5.Text = "XP:";
-      this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+      this.lblPlayerDamage.AutoSize = true;
+      this.lblPlayerDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblPlayerDamage.ForeColor = System.Drawing.Color.Red;
+      this.lblPlayerDamage.Location = new System.Drawing.Point(138, 52);
+      this.lblPlayerDamage.Name = "lblPlayerDamage";
+      this.lblPlayerDamage.Size = new System.Drawing.Size(89, 25);
+      this.lblPlayerDamage.TabIndex = 15;
+      this.lblPlayerDamage.Text = "label10";
+      this.lblPlayerDamage.Visible = false;
       // 
-      // lblPlayerXp
+      // lblEnemyDamage
       // 
-      this.lblPlayerXp.AutoSize = true;
-      this.lblPlayerXp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.lblPlayerXp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-      this.lblPlayerXp.Location = new System.Drawing.Point(111, 372);
-      this.lblPlayerXp.Name = "lblPlayerXp";
-      this.lblPlayerXp.Size = new System.Drawing.Size(57, 20);
-      this.lblPlayerXp.TabIndex = 13;
-      this.lblPlayerXp.Text = "label1";
+      this.lblEnemyDamage.AutoSize = true;
+      this.lblEnemyDamage.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.lblEnemyDamage.ForeColor = System.Drawing.Color.Red;
+      this.lblEnemyDamage.Location = new System.Drawing.Point(135, 52);
+      this.lblEnemyDamage.Name = "lblEnemyDamage";
+      this.lblEnemyDamage.Size = new System.Drawing.Size(89, 25);
+      this.lblEnemyDamage.TabIndex = 16;
+      this.lblEnemyDamage.Text = "label10";
+      this.lblEnemyDamage.Visible = false;
+      // 
+      // tmrPlayerDamage
+      // 
+      this.tmrPlayerDamage.Interval = 20;
+      this.tmrPlayerDamage.Tick += new System.EventHandler(this.tmrPlayerDamage_Tick);
+      // 
+      // tmrEnemyDamage
+      // 
+      this.tmrEnemyDamage.Interval = 20;
+      this.tmrEnemyDamage.Tick += new System.EventHandler(this.tmrEnemyDamage_Tick);
       // 
       // FrmArena
       // 
@@ -500,5 +541,9 @@
     private System.Windows.Forms.Label lblEndFightMessage;
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.Label lblPlayerXp;
+    private System.Windows.Forms.Label lblPlayerDamage;
+    private System.Windows.Forms.Label lblEnemyDamage;
+    private System.Windows.Forms.Timer tmrPlayerDamage;
+    private System.Windows.Forms.Timer tmrEnemyDamage;
   }
 }

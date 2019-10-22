@@ -55,7 +55,7 @@ namespace GameLibrary {
         LevelUp();
       }
     }
-    public void LevelUp() {
+    public virtual void LevelUp() {
       // level increases
       Level++;
 
@@ -70,6 +70,10 @@ namespace GameLibrary {
       Def += LVLINC_DEF;
       Luck += LVLINC_LUCK;
       Speed += LVLINC_SPEED;
+    }
+    public void RefillHealthAndMana() {
+      Health = MaxHealth;
+      Mana = MaxMana;
     }
     public void SimpleAttack(Mortal receiver) {
       float baseDamage = Math.Abs(Str * 1.2f - receiver.Def);

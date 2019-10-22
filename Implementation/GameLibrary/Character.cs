@@ -24,6 +24,7 @@ namespace GameLibrary {
     private Position pos;
     private Map map;
     public float XP { get; private set; }
+    public bool ShouldLevelUp { get; private set; }
 
     /// <summary>
     /// 
@@ -35,6 +36,7 @@ namespace GameLibrary {
       Pic = pb;
       this.pos = pos;
       this.map = map;
+      ShouldLevelUp = false;
     }
 
     public void GainXP(float amount) {
@@ -42,8 +44,13 @@ namespace GameLibrary {
 
       // every 100 experience points you gain a level
       if ((int)XP / 100 >= Level) {
-        LevelUp();
+        ShouldLevelUp = true;
       }
+    }
+
+    public override void LevelUp() {
+      base.LevelUp();
+      ShouldLevelUp = false;
     }
 
     public void BackToStart() {
