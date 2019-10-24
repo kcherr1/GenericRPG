@@ -60,6 +60,7 @@ namespace GameLibrary {
       Pic.Left = topleft.col;
       Pic.Top = topleft.row;
     }
+    
     public override void ResetStats() {
       base.ResetStats();
       XP = 0;
