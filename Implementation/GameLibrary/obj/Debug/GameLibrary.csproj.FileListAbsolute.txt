@@ -1,0 +1,5 @@
+C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\bin\Debug\GameLibrary.dll
+C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\bin\Debug\GameLibrary.pdb
+C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.csprojAssemblyReference.cache
+C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.dll
+C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.pdb

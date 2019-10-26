@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace GameLibrary {
   public enum GameState {
     LOADING,
-    TITLE_SCREEN,
+    MAIN_MENU,
     ON_MAP,
     FIGHTING,
     DEAD,

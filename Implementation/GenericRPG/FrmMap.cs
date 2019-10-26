@@ -18,7 +18,7 @@ namespace GenericRPG {
       game = Game.GetGame();
 
       map = new Map();
-      character = map.LoadMap("Resources/level.txt", grpMap, 
+      character = map.LoadMap("Resources/level1.txt", grpMap, 
         str => Resources.ResourceManager.GetObject(str) as Bitmap
       );
       Width = grpMap.Width + 25;
