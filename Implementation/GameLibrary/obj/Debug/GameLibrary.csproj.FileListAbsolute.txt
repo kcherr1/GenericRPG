@@ -3,3 +3,6 @@ C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\bin\Debug\Ga
 C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.csprojAssemblyReference.cache
 C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.dll
 C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.pdb
+C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GameLibrary\bin\Debug\Newtonsoft.Json.dll
+C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GameLibrary\bin\Debug\Newtonsoft.Json.xml
+C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.csproj.CopyComplete

@@ -1,8 +1,11 @@
 ﻿using GameLibrary;
 using GenericRPG.Properties;
 using System;
+using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GenericRPG
 {
@@ -15,20 +18,34 @@ namespace GenericRPG
         public FrmMap()
         {
             InitializeComponent();
-        }
 
-        private void FrmMap_Load(object sender, EventArgs e)
-        {
             game = Game.GetGame();
 
             map = new Map();
             character = map.LoadMap("Resources/level1.txt", grpMap,
               str => Resources.ResourceManager.GetObject(str) as Bitmap
             );
+        }
+
+        private void FrmMap_Load(object sender, EventArgs e)
+        {
             Width = grpMap.Width + 25;
             Height = grpMap.Height + 50;
             game.SetCharacter(character);
         }
+
+        // code to load in game data
+        public void LoadGame(string json)
+        {
+            JObject obj = JObject.Parse(json);
+
+            map.encounterChance = (double)obj["map"]["encounterChance"];
+
+            //update character vals
+            character.LoadCharacter(json);
+        }
+        // must override the function which receives keyboard presses
+        // because the buttons on the screen would "steal" the event
         protected override bool ProcessDialogKey(Keys keyData)
         {
             MoveDir dir = MoveDir.NO_MOVE;
@@ -63,35 +80,6 @@ namespace GenericRPG
             }
             return base.ProcessDialogKey(keyData);
         }
-        /*private void FrmMap_KeyDown(object sender, KeyEventArgs e)
-        {
-            MoveDir dir = MoveDir.NO_MOVE;
-            switch (e.KeyCode)
-            {
-                case Keys.Left:
-                    dir = MoveDir.LEFT;
-                    break;
-                case Keys.Right:
-                    dir = MoveDir.RIGHT;
-                    break;
-                case Keys.Up:
-                    dir = MoveDir.UP;
-                    break;
-                case Keys.Down:
-                    dir = MoveDir.DOWN;
-                    break;
-            }
-            if (game.State == GameState.ON_MAP && dir != MoveDir.NO_MOVE)
-            {
-                character.Move(dir);
-                if (game.State == GameState.FIGHTING)
-                {
-                    FrmArena frmArena = new FrmArena();
-                    frmArena.Show();
-                }
-            }
-        }
-        */
 
         private void PauseBtn_Click(object sender, EventArgs e)
         {
@@ -127,6 +115,23 @@ namespace GenericRPG
             Game.GetGame().ChangeState(GameState.MAIN_MENU);
 
             this.Close();
+        }
+
+        private void BtnSaveGame_Click(object sender, EventArgs e)
+        {
+            SaveGame();
+        }
+
+        // save the state of the game in a csv file
+        // will serialize the object data into a json string
+        public void SaveGame()
+        {
+            string gameSave = JsonConvert.SerializeObject(game);
+
+            //Console.WriteLine(gameSave);
+
+            File.WriteAllText(@"save1.txt", gameSave);
+
         }
     }
 }

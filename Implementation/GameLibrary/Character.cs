@@ -1,4 +1,7 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace GameLibrary
 {
@@ -18,14 +21,13 @@ namespace GameLibrary
             this.col = col;
         }
     }
-
     /// <summary>
     /// This represents our player in our game
     /// </summary>
     public class Character : Mortal
     {
         public PictureBox Pic { get; private set; }
-        private Position pos;
+        [JsonProperty] public Position pos;
         private Map map;
         public float XP { get; private set; }
         public bool ShouldLevelUp { get; private set; }
@@ -44,6 +46,47 @@ namespace GameLibrary
             ShouldLevelUp = false;
         }
 
+        // character constructor overload to feed it saved data
+        public void LoadCharacter(string data)
+        {
+            Console.WriteLine(data);
+            JObject obj = JObject.Parse(data);
+
+            //this.Pic = current.Pic;
+            this.pos = new Position(
+                Convert.ToInt32(obj["Character"]["pos"]["row"]),
+                Convert.ToInt32(obj["Character"]["pos"]["col"])
+                );
+
+            this.ShouldLevelUp = Convert.ToBoolean(obj["Character"]["ShouldLevelUp"]);
+            this.SetLevel((int)obj["Character"]["Level"]);
+            this.XP = (float)(obj["Character"]["XP"]);
+            this.Name = obj["Character"]["XP"].ToString();
+            this.MaxHealth = (int)obj["Character"]["MaxHealth"];
+            this.Health = (int)obj["Character"]["Health"];
+            this.MaxMana = (int)obj["Character"]["MaxMana"];
+            this.Mana = (int)obj["Character"]["Mana"];
+            this.Str = (float)obj["Character"]["Str"];
+            this.Def = (float)obj["Character"]["Def"];
+            this.Luck = (float)obj["Character"]["Luck"];
+            this.Speed = (float)obj["Character"]["Speed"];
+
+            // update sprite location
+            Position topleft = map.RowColToTopLeft(pos);
+            Pic.Left = topleft.col;
+            Pic.Top = topleft.row;
+        }
+            
+        public bool ShouldSerializePic()
+        {
+            // tell JSON serlializer to ignore this value 
+            return false;
+        }
+
+        public string SaveToJson()
+        {
+            return JsonConvert.SerializeObject(this);
+        }
         public void GainXP(float amount)
         {
             XP += amount;
@@ -102,5 +145,6 @@ namespace GameLibrary
                 Pic.Top = topleft.row;
             }
         }
+
     }
 }

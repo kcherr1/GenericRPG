@@ -16,3 +16,5 @@ C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GenericRPG\obj\Debug\Gen
 C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GenericRPG\obj\Debug\GenericRPG.pdb
 C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GenericRPG\bin\Debug\Resources\level1.txt
 C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GenericRPG\obj\Debug\GenericRPG.FrmMainMenu.resources
+C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GenericRPG\bin\Debug\Newtonsoft.Json.dll
+C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GenericRPG\bin\Debug\Newtonsoft.Json.xml

@@ -1,4 +1,8 @@
-﻿namespace GameLibrary
+﻿using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace GameLibrary
 {
     public enum GameState
     {
@@ -14,6 +18,7 @@
     {
         private static Game game;
 
+        public Map map;  // have the game keep track of the map so make saving the game state easier
         public Character Character { get; private set; }
         public GameState State { get; private set; }
 

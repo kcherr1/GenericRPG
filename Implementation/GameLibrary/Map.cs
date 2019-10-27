@@ -29,6 +29,9 @@ namespace GameLibrary
         /// <returns></returns>
         public Character LoadMap(string mapFile, GroupBox grpMap, Func<string, Bitmap> LoadImg)
         {
+            // give the game object a reference to the map
+            Game.GetGame().map = this;
+
             // declare and initialize locals
             int top = TOP_PAD;
             int left = BOUNDARY_PAD;

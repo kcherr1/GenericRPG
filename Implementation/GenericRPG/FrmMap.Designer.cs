@@ -90,6 +90,7 @@
             this.BtnSaveGame.TabIndex = 4;
             this.BtnSaveGame.Text = "Save Game";
             this.BtnSaveGame.UseVisualStyleBackColor = true;
+            this.BtnSaveGame.Click += new System.EventHandler(this.BtnSaveGame_Click);
             // 
             // BtnContinue
             // 

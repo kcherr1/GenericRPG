@@ -1,6 +1,8 @@
 ﻿using GameLibrary;
 using System;
+using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 
 namespace GenericRPG
 {
@@ -33,5 +35,24 @@ namespace GenericRPG
             Application.Exit();
         }
 
+        // only one game save for now.
+        private void btnLoadGame_Click(object sender, EventArgs e)
+        {
+            // load json string from file
+            string gameSave = File.ReadAllText(@"save1.txt");
+
+            // create blank game
+            FrmMap frmMap = new FrmMap();
+            frmMap.FormClosing += delegate { this.Show(); };
+
+            //load game into blank
+            frmMap.LoadGame(gameSave);
+
+
+            // play
+            Game.GetGame().ChangeState(GameState.ON_MAP);
+            frmMap.Show();
+            Hide();
+        }
     }
 }
