@@ -6,3 +6,11 @@ C:\Users\rbbrown\Source\Repos\GenericRPG\Implementation\GameLibrary\obj\Debug\Ga
 C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GameLibrary\bin\Debug\Newtonsoft.Json.dll
 C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GameLibrary\bin\Debug\Newtonsoft.Json.xml
 C:\Users\rbbrown\source\repos\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.csproj.CopyComplete
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\bin\Debug\GameLibrary.dll
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\bin\Debug\GameLibrary.pdb
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\bin\Debug\Newtonsoft.Json.dll
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\bin\Debug\Newtonsoft.Json.xml
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.csprojResolveAssemblyReference.cache
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.csproj.CoreCompileInputs.cache
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.dll
+C:\Users\okami\OneDrive\Documents\Programming\GenericRPG\Implementation\GameLibrary\obj\Debug\GameLibrary.pdb

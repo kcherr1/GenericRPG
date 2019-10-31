@@ -127,9 +127,16 @@
     <None Include="Resources\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\damage_enemy.png" />
+    <None Include="Resources\boss.png" />
+    <None Include="Resources\boss_final.png" />
     <Content Include="Resources\levelup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\tank_enemy.png" />
+    <None Include="Resources\magic_enemy.png" />
+    <None Include="Resources\magic_enemy.png.bmp" />
+    <None Include="Resources\magic_enemy.bmp" />
     <None Include="Resources\tv_static.gif" />
     <None Include="Resources\level2.png" />
     <None Include="Resources\quitgame.png" />

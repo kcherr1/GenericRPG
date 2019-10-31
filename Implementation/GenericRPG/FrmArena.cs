@@ -12,6 +12,7 @@ namespace GenericRPG
         private Character character;
         private Enemy enemy;
         private Random rand;
+        private int type;
 
         public FrmArena()
         {
@@ -29,10 +30,28 @@ namespace GenericRPG
         private void FrmArena_Load(object sender, EventArgs e)
         {
             rand = new Random();
-
             game = Game.GetGame();
             character = game.Character;
-            enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
+
+            type = rand.Next(0, 4);
+            switch(type)
+            {
+                case 0:
+                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, type);
+                    break;
+
+                case 1:
+                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.magic_enemy, type);
+                    break;
+
+                case 2:
+                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.tank_enemy, type);
+                    break;
+
+                case 3:
+                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.damage_enemy, type);
+                    break;
+            }
 
             // stats
             UpdateStats();
