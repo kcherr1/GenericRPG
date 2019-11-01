@@ -11,9 +11,9 @@ namespace GenericRPG {
       Application.EnableVisualStyles();
       Application.SetCompatibleTextRenderingDefault(false);
       //Application.Run(new FrmMap());
-      Application.Run();
-      var newForm = new FrmMap();
+      var newForm = new FrmMainMenu();
       newForm.Show();
+      Application.Run();
         }
   }
 }
