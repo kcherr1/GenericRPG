@@ -3,6 +3,7 @@ using GenericRPG.Properties;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.IO;
 
 namespace GenericRPG {
   public partial class FrmMap : Form {
@@ -18,9 +19,16 @@ namespace GenericRPG {
       game = Game.GetGame();
 
       map = new Map();
-      character = map.LoadMap("Resources/level.txt", grpMap, 
-        str => Resources.ResourceManager.GetObject(str) as Bitmap
-      );
+      if(File.Exists("Resources/savedcharacter.txt")&&File.Exists("savedmap.txt")){
+        character = map.LoadMap("Resources/savedmap.txt", grpMap, 
+          str => Resources.ResourceManager.GetObject(str) as Bitmap
+        );
+        character.SetStats("Resources/savedcharacter.txt");
+      } else {
+        character = map.LoadMap("Resources/level.txt", grpMap, 
+          str => Resources.ResourceManager.GetObject(str) as Bitmap
+        );
+      }
       Width = grpMap.Width + 25;
       Height = grpMap.Height + 50;
       game.SetCharacter(character);

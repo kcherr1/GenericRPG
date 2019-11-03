@@ -17,6 +17,10 @@ namespace GameLibrary {
     public int CharacterStartCol { get; private set; }
     private int NumRows { get { return layout.GetLength(0); } }
     private int NumCols { get { return layout.GetLength(1); } }
+    public int CheckX { get; private set; }
+    public int CheckY { get; private set; }
+    public string CurrentMap { get; private set; }
+    
 
     /// <summary>
     /// 
@@ -29,6 +33,7 @@ namespace GameLibrary {
       // declare and initialize locals
       int top = TOP_PAD;
       int left = BOUNDARY_PAD;
+      CurrentMap = mapFile;
       Character character = null;
       List<string> mapLines = new List<string>();
 
@@ -61,6 +66,10 @@ namespace GameLibrary {
             CharacterStartRow = i;
             CharacterStartCol = j;
             character = new Character(pb, new Position(i, j), this);
+          }
+          if (val == 6) {
+            CheckX = j;
+            CheckY = i;
           }
           left += BLOCK_SIZE;
           j++;
@@ -141,16 +150,51 @@ namespace GameLibrary {
             Height = BLOCK_SIZE
           };
           break;
+
+        // checkpoint
+        case 6:
+          result = new PictureBox() {
+            BackgroundImage = LoadImg("checkpoint"),
+            BackgroundImageLayout = ImageLayout.Stretch,
+            Width = BLOCK_SIZE,
+            Height = BLOCK_SIZE
+          };
+          break;
       }
       return result;
     }
 
-    public bool IsValidPos(Position pos) {
+    public bool IsValidPos(Position pos, int cX, int cY, Character character) {
       if (pos.row < 0 || pos.row >= NumRows ||
           pos.col < 0 || pos.col >= NumCols ||
           layout[pos.row, pos.col] == 1) {
         return false;
       }
+      if (pos.row == cY && pos.col == cX) {
+        if(File.Exists("Resources/savedcharacter.txt")){
+          File.Delete("Resources/savedcharacter.txt");
+        }
+        using (StreamWriter writer = new StreamWriter("Resources/savedcharacter.txt")){
+            writer.WriteLine(character.Health);
+            writer.WriteLine(character.MaxHealth);
+            writer.WriteLine(character.Mana);
+            writer.WriteLine(character.MaxMana);
+            writer.WriteLine(character.Str);
+            writer.WriteLine(character.Def);
+            writer.WriteLine(character.Luck);
+            writer.WriteLine(character.Speed);
+            writer.WriteLine(character.XP);
+            writer.WriteLine(character.ShouldLevelUp);
+            writer.WriteLine(character.Level);
+            writer.WriteLine(character.Name);
+            // do the thing for pic???
+        }
+        if(File.Exists("Resources/savedmap.txt")){
+            File.Delete("Resources/savedmap.txt");
+        }
+        File.Copy(CurrentMap, "Resources/savedmap.txt");
+      }
+
       if (rand.NextDouble() < encounterChance) {
         encounterChance = 0.15;
         Game.GetGame().ChangeState(GameState.FIGHTING);

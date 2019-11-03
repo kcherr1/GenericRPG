@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.IO;
 
 namespace GameLibrary {
   public struct Position {
@@ -66,6 +67,13 @@ namespace GameLibrary {
       XP = 0;
     }
 
+    public void SetStats(string statfile){
+      using (FileStream fs = new FileStream(statfile, FileMode.Open)) {
+        using (StreamReader sr = new StreamReader(fs)) {
+        }
+      }
+    }
+
     public void Move(MoveDir dir) {
       Position newPos = pos;
       switch (dir) {
@@ -82,7 +90,7 @@ namespace GameLibrary {
           newPos.col++;
           break;
       }
-      if (map.IsValidPos(newPos)) {
+      if (map.IsValidPos(newPos, map.CheckX, map.CheckY, this)) {
         pos = newPos;
         Position topleft = map.RowColToTopLeft(pos);
         Pic.Left = topleft.col;
