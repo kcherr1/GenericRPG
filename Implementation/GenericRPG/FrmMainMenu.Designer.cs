@@ -1,4 +1,7 @@
-﻿namespace GenericRPG
+﻿using System;
+using System.Windows.Forms;
+
+namespace GenericRPG
 {
     partial class FrmMainMenu
     {
@@ -77,6 +80,11 @@
             this.Load += new System.EventHandler(this.FrmMainMenu_Load);
             this.ResumeLayout(false);
 
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
         }
 
         #endregion
