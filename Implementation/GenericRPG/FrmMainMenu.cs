@@ -32,13 +32,19 @@ namespace GenericRPG
 
         private void FrmMainMenu_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
             Close();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var newForm = new FrmMap();
+            newForm.Show();
+            this.Close();
         }
     }
 }
