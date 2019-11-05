@@ -109,8 +109,23 @@ namespace GenericRPG {
       }
       else {
         enemy.SimpleAttack(character);
-        UpdateStats();
-      }
+        if (character.Health <= 0)
+        {
+            UpdateStats();
+            game.ChangeState(GameState.DEAD);
+            lblEndFightMessage.Text = "You Were Defeated!";
+            lblEndFightMessage.Visible = true;
+            Refresh();
+            Thread.Sleep(1200);
+            EndFight();
+            FrmGameOver frmGameOver = new FrmGameOver();
+            frmGameOver.Show();
+        }
+        else
+        {
+            UpdateStats();
+        }
+    }
     }
 
     private void tmrPlayerDamage_Tick(object sender, EventArgs e) {
