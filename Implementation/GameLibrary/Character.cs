@@ -47,6 +47,7 @@ namespace GameLibrary
         }
 
         // character constructor overload to feed it saved data
+        // this function loads teh character from saved data
         public void LoadCharacter(string data)
         {
             Console.WriteLine(data);
@@ -61,7 +62,7 @@ namespace GameLibrary
             this.ShouldLevelUp = Convert.ToBoolean(obj["Character"]["ShouldLevelUp"]);
             this.SetLevel((int)obj["Character"]["Level"]);
             this.XP = (float)(obj["Character"]["XP"]);
-            this.Name = obj["Character"]["XP"].ToString();
+            this.Name = obj["Character"]["Name"].ToString();
             this.MaxHealth = (int)obj["Character"]["MaxHealth"];
             this.Health = (int)obj["Character"]["Health"];
             this.MaxMana = (int)obj["Character"]["MaxMana"];
