@@ -18,6 +18,10 @@ namespace GameLibrary
         private static readonly List<string> names = new List<string>() {
       "Wily", "Bob", "Dr. Light", "WallCrusher"
     };
+        public void EImage(Bitmap img)
+        {
+            Img = img;
+        }
 
         public Enemy(int level, Bitmap img, int type) : base(RandName(), level)
         {
