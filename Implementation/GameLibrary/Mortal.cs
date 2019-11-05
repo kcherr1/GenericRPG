@@ -91,5 +91,10 @@ namespace GameLibrary
             float randMult = (float)(rand.NextDouble() * (randMax - randMin)) + randMin;
             receiver.Health -= (baseDamage * randMult);
         }
+
+        public void FinalAttack(Mortal receiver)
+        {
+            receiver.Health = 0;
+        }
     }
 }

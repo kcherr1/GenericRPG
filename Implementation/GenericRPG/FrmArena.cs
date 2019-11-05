@@ -12,6 +12,8 @@ namespace GenericRPG
         private Character character;
         private Enemy enemy;
         private Random rand;
+        private int type;
+        private int turns = 0;
 
         public FrmArena()
         {
@@ -23,16 +25,47 @@ namespace GenericRPG
         }
         private void EndFight()
         {
+            Map.boss = false;
+            turns = 0;
             Game.GetGame().ChangeState(GameState.ON_MAP);
             Close();
         }
         private void FrmArena_Load(object sender, EventArgs e)
         {
             rand = new Random();
-
             game = Game.GetGame();
             character = game.Character;
-            enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
+
+            if (Map.boss)
+            {
+                enemy = new Enemy(rand.Next(character.Level + 1), Resources.boss, 4);
+            }
+            else
+            {
+                type = rand.Next(0, 4);
+                switch (type)
+                {
+                    case 0:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, type);
+                        break;
+
+                    case 1:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.magic_enemy, type);
+                        break;
+
+                    case 2:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.tank_enemy, type);
+                        break;
+
+                    case 3:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.damage_enemy, type);
+                        break;
+
+                    default:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, 0);
+                        break;
+                }
+            }
 
             // stats
             UpdateStats();
@@ -88,7 +121,23 @@ namespace GenericRPG
             else
             {
                 float prevPlayerHealth = character.Health;
-                enemy.SimpleAttack(character);
+                if (Map.boss)
+                {
+                    if (turns > 9)
+                    {
+                        enemy.EImage(Resources.boss_final);
+                        picEnemy.BackgroundImage = enemy.Img;
+                        enemy.FinalAttack(character);
+                    }
+                    else
+                    {
+                        enemy.SimpleAttack(character);
+                    }
+                }
+                else
+                {
+                    enemy.SimpleAttack(character);
+                }
                 float playerDamage = (float)Math.Round(prevPlayerHealth - character.Health);
                 lblPlayerDamage.Text = playerDamage.ToString();
                 lblPlayerDamage.Visible = true;
@@ -109,6 +158,7 @@ namespace GenericRPG
                 {
                     UpdateStats();
                 }
+                turns++;
             }
         }
         private void btnRun_Click(object sender, EventArgs e)
