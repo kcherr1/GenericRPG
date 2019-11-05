@@ -1,4 +1,6 @@
-﻿namespace GenericRPG {
+﻿using System;
+
+namespace GenericRPG {
   partial class FrmArena {
     /// <summary>
     /// Required designer variable.
@@ -15,6 +17,8 @@
       }
       base.Dispose(disposing);
     }
+
+    public FrmMap parentMap;
 
     #region Windows Form Designer generated code
 
@@ -508,8 +512,19 @@
 
     }
 
-    #endregion
-    private System.Windows.Forms.Label lblPlayerHealth;
+        public void parentForm(FrmMap map)
+        {
+            parentMap = map;
+        }
+
+        protected override void OnClosed(EventArgs e)
+        {
+            parentMap.inCombat = false;
+            base.OnClosed(e);
+        }
+
+        #endregion
+        private System.Windows.Forms.Label lblPlayerHealth;
     private System.Windows.Forms.PictureBox picCharacter;
     private System.Windows.Forms.Label lblPlayerStr;
     private System.Windows.Forms.Label lblPlayerDef;
