@@ -127,9 +127,12 @@
     <None Include="Resources\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\trees.png" />
+    <None Include="Resources\water.jpg" />
     <None Include="Resources\damage_enemy.png" />
     <None Include="Resources\boss.png" />
     <None Include="Resources\boss_final.png" />
+    <None Include="Resources\grass.jpg" />
     <Content Include="Resources\levelup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

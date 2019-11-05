@@ -24,6 +24,7 @@ namespace GenericRPG
         }
         private void EndFight()
         {
+            Map.boss = false;
             Game.GetGame().ChangeState(GameState.ON_MAP);
             Close();
         }
@@ -33,24 +34,35 @@ namespace GenericRPG
             game = Game.GetGame();
             character = game.Character;
 
-            type = rand.Next(0, 4);
-            switch(type)
+            if (Map.boss)
             {
-                case 0:
-                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, type);
-                    break;
+                enemy = new Enemy(rand.Next(character.Level + 1), Resources.boss, 4);
+            }
+            else
+            {
+                type = rand.Next(0, 4);
+                switch (type)
+                {
+                    case 0:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, type);
+                        break;
 
-                case 1:
-                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.magic_enemy, type);
-                    break;
+                    case 1:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.magic_enemy, type);
+                        break;
 
-                case 2:
-                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.tank_enemy, type);
-                    break;
+                    case 2:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.tank_enemy, type);
+                        break;
 
-                case 3:
-                    enemy = new Enemy(rand.Next(character.Level + 1), Resources.damage_enemy, type);
-                    break;
+                    case 3:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.damage_enemy, type);
+                        break;
+
+                    default:
+                        enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, 0);
+                        break;
+                }
             }
 
             // stats

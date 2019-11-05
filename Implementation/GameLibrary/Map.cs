@@ -20,6 +20,8 @@ namespace GameLibrary
         private int NumRows { get { return layout.GetLength(0); } }
         private int NumCols { get { return layout.GetLength(1); } }
 
+        public static bool boss = false;
+
         /// <summary>
         /// 
         /// </summary>
@@ -101,17 +103,37 @@ namespace GameLibrary
         private PictureBox CreateMapCell(int legendValue, Func<string, Bitmap> LoadImg)
         {
             PictureBox result = null;
+            /*for (int i = 0; i < 11; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    result = new PictureBox()
+                    {
+                        BackgroundImage = LoadImg("grass"),
+                        BackgroundImageLayout = ImageLayout.Stretch,
+                        Width = BLOCK_SIZE,
+                        Height = BLOCK_SIZE
+                    };
+                }
+            }*/
             switch (legendValue)
             {
                 // walkable
                 case 0:
+                    result = new PictureBox()
+                    {
+                        BackgroundImage = LoadImg(""),
+                        BackgroundImageLayout = ImageLayout.Stretch,
+                        Width = BLOCK_SIZE,
+                        Height = BLOCK_SIZE
+                    };
                     break;
 
                 // wall
                 case 1:
                     result = new PictureBox()
                     {
-                        BackgroundImage = LoadImg("wall"),
+                        BackgroundImage = LoadImg("trees"),
                         BackgroundImageLayout = ImageLayout.Stretch,
                         Width = BLOCK_SIZE,
                         Height = BLOCK_SIZE
@@ -172,6 +194,13 @@ namespace GameLibrary
                 layout[pos.row, pos.col] == 1)
             {
                 return false;
+            }
+
+            if (pos.row == 3 && pos.col == 9)
+            {
+                boss = true;
+                encounterChance = 0.15;
+                Game.GetGame().ChangeState(GameState.FIGHTING);
             }
 
             // Roll for fighting chance
