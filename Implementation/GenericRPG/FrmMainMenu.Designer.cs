@@ -82,10 +82,6 @@ namespace GenericRPG
 
         }
 
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-        }
 
         #endregion
         private System.Windows.Forms.Button button2;
