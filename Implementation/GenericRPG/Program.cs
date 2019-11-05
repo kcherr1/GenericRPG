@@ -12,6 +12,7 @@ namespace GenericRPG {
       Application.SetCompatibleTextRenderingDefault(false);
       //Application.Run(new FrmMap());
       var newForm = new FrmMainMenu();
+      newForm.ControlBox = false;
       newForm.Show();
       Application.Run();
         }
