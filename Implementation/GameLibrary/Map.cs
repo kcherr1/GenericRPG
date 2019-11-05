@@ -103,23 +103,10 @@ namespace GameLibrary
         private PictureBox CreateMapCell(int legendValue, Func<string, Bitmap> LoadImg)
         {
             PictureBox result = null;
-            /*for (int i = 0; i < 11; i++)
-            {
-                for (int j = 0; j < 6; j++)
-                {
-                    result = new PictureBox()
-                    {
-                        BackgroundImage = LoadImg("grass"),
-                        BackgroundImageLayout = ImageLayout.Stretch,
-                        Width = BLOCK_SIZE,
-                        Height = BLOCK_SIZE
-                    };
-                }
-            }*/
             switch (legendValue)
             {
                 // walkable
-                case 0:
+                /*case 0:
                     result = new PictureBox()
                     {
                         BackgroundImage = LoadImg(""),
@@ -127,7 +114,7 @@ namespace GameLibrary
                         Width = BLOCK_SIZE,
                         Height = BLOCK_SIZE
                     };
-                    break;
+                    break;*/
 
                 // wall
                 case 1:
