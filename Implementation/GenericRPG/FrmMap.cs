@@ -9,6 +9,7 @@ namespace GenericRPG {
     private Character character;
     private Map map;
     private Game game;
+    public bool inCombat = false;
 
     public FrmMap() {
       InitializeComponent();
@@ -42,10 +43,12 @@ namespace GenericRPG {
           dir = MoveDir.DOWN;
           break;
       }
-      if (dir != MoveDir.NO_MOVE) {
+      if (dir != MoveDir.NO_MOVE && inCombat == false) {
         character.Move(dir);
         if (game.State == GameState.FIGHTING) {
           FrmArena frmArena = new FrmArena();
+          frmArena.parentForm(this);
+          inCombat = true;
           frmArena.Show();
         }
       }
