@@ -64,6 +64,7 @@ namespace GenericRPG {
 
         #endregion
         private System.Windows.Forms.GroupBox grpMap;
-  }
+
+    }
 }
 

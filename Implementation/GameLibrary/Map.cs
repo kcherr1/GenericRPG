@@ -171,8 +171,15 @@ namespace GameLibrary {
         return false;
       }
       if (pos.row == cY && pos.col == cX) {
-        if(File.Exists("Resources/savedcharacter.txt")){
-          File.Delete("Resources/savedcharacter.txt");
+        if(!Directory.Exists("Resources")){
+          Directory.CreateDirectory("Resources");
+        } else {
+          if(File.Exists("Resources/savedmap.txt")){
+            File.Delete("Resources/savedmap.txt");
+          }
+          if(File.Exists("Resources/savedcharacter.txt")){
+            File.Delete("Resources/savedcharacter.txt");
+          }
         }
         using (StreamWriter writer = new StreamWriter("Resources/savedcharacter.txt")){
             writer.WriteLine(character.Health);
@@ -187,20 +194,44 @@ namespace GameLibrary {
             writer.WriteLine(character.ShouldLevelUp);
             writer.WriteLine(character.Level);
             writer.WriteLine(character.Name);
-            // do the thing for pic???
         }
-        if(File.Exists("Resources/savedmap.txt")){
-            File.Delete("Resources/savedmap.txt");
+        string[] file = new string[10];
+        int lineNum = 0;
+        using (StreamReader sr = new StreamReader("Resources/level.txt")) {
+          string line = sr.ReadLine();
+          while(line != null){
+            file[lineNum] = line;
+            line = sr.ReadLine();
+            lineNum++;
+          }
+          for(int i=0; i<lineNum; i++){
+            if(file[i].Contains("2")){
+              int index = file[i].IndexOf("2");
+              System.Text.StringBuilder strBuilder = new System.Text.StringBuilder(file[i]);
+              strBuilder[index] = '0';
+              file[i] = strBuilder.ToString();
+            }
+            if(file[i].Contains("6")){
+              int index = file[i].IndexOf("6");
+              System.Text.StringBuilder strBuilder = new System.Text.StringBuilder(file[i]);
+              strBuilder[index] = '2';
+              file[i] = strBuilder.ToString();
+            }
+          }
         }
-        File.Copy(CurrentMap, "Resources/savedmap.txt");
-      }
-
-      if (rand.NextDouble() < encounterChance) {
-        encounterChance = 0.15;
-        Game.GetGame().ChangeState(GameState.FIGHTING);
-      }
-      else {
-        encounterChance += 0.10;
+        using (StreamWriter sw = new StreamWriter("Resources/savedmap.txt")) {
+          for(int i=0; i<lineNum; i++){
+            sw.WriteLine(file[i]);
+          }
+        }
+      } else {
+        if (rand.NextDouble() < encounterChance) {
+          encounterChance = 0.15;
+          Game.GetGame().ChangeState(GameState.FIGHTING);
+        }
+        else {
+          encounterChance += 0.10;
+        }
       }
 
       return true;

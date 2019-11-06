@@ -25,7 +25,7 @@ namespace GenericRPG
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var newForm = new FrmMap();
+            var newForm = new FrmMap(false);
             newForm.Show();
             this.Close();
         }
@@ -42,7 +42,7 @@ namespace GenericRPG
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            var newForm = new FrmMap();
+            var newForm = new FrmMap(true);
             newForm.Show();
             this.Close();
         }
