@@ -6,6 +6,7 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace GenericRPG {
+
   public partial class FrmArena : Form {
     private Game game;
     private Character character;
@@ -27,7 +28,7 @@ namespace GenericRPG {
 
       game = Game.GetGame();
       character = game.Character;
-      enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
+      enemy = pickEnemy(rand.Next(character.Level + 1));
 
       // stats
       UpdateStats();
@@ -129,6 +130,17 @@ namespace GenericRPG {
         tmrEnemyDamage.Enabled = false;
         lblEnemyDamage.Top = 52;
       }
+    }
+
+    // picks enemy to be one of three enemies
+    private Enemy pickEnemy(int level) {
+      int enemyType = rand.Next(0,3);
+      if (enemyType == 0)
+        return new Enemy(level, Resources.metroid, EnemyType.ArmorBoy);
+      else if (enemyType == 1)
+        return new Enemy(level, Resources.goomba, EnemyType.ThiccBoi);
+      else
+        return new Enemy(level, Resources.octorok, EnemyType.GlassCannon);
     }
   }
 }

@@ -114,9 +114,12 @@
     <None Include="Resources\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\goomba.png" />
     <Content Include="Resources\levelup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Resources\octorok.png" />
+    <None Include="Resources\metroid.png" />
     <None Include="Resources\level2.png" />
     <None Include="Resources\quitgame.png" />
     <None Include="Resources\enemy.png" />
