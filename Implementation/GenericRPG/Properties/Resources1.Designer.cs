@@ -153,9 +153,9 @@ namespace GenericRPG.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap octorock {
+        internal static System.Drawing.Bitmap octorok {
             get {
-                object obj = ResourceManager.GetObject("octorockl", resourceCulture);
+                object obj = ResourceManager.GetObject("octorok", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

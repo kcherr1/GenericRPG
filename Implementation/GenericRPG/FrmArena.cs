@@ -132,9 +132,15 @@ namespace GenericRPG {
       }
     }
 
+    // picks enemy to be one of three enemies
     private Enemy pickEnemy(int level) {
       int enemyType = rand.Next(0,3);
-      return new Enemy(level, Resources.metroid);
+      if (enemyType == 0)
+        return new Enemy(level, Resources.metroid, EnemyType.ArmorBoy);
+      else if (enemyType == 1)
+        return new Enemy(level, Resources.goomba, EnemyType.ThiccBoi);
+      else
+        return new Enemy(level, Resources.octorok, EnemyType.GlassCannon);
     }
   }
 }
