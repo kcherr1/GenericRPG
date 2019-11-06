@@ -17,6 +17,7 @@ namespace GameLibrary {
     private const float WEAKEN_MAX = 1.85f;
 
     public Bitmap Img { get; private set; }
+    public EnemyType Type {get; private set; }
     public float XpDropped { get; private set; }
 
     private static readonly Random rand = new Random();
@@ -26,6 +27,7 @@ namespace GameLibrary {
 
     public Enemy(int level, Bitmap img, EnemyType type) : base(RandName(), level) {
       Img = img;
+      Type = type;
 
       // weaken so player has a chance
       setHealth(type);
