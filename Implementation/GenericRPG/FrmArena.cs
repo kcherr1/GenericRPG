@@ -9,10 +9,12 @@ namespace GenericRPG {
   public partial class FrmArena : Form {
     private Game game;
     private Character character;
+    private Inventory inventory;
     private Enemy enemy;
     private Random rand;
 
-    public FrmArena() {
+    public FrmArena(Inventory inv) {
+      inventory = inv;
       InitializeComponent();
     }
     private void btnEndFight_Click(object sender, EventArgs e) {
@@ -65,6 +67,14 @@ namespace GenericRPG {
       lblEnemyDamage.Visible = true;
       tmrEnemyDamage.Enabled = true;
       if (enemy.Health <= 0) {
+        int potion = rand.Next(10);
+        if (potion > 5)
+        {
+            inventory.getPotion();
+            label10.Text = "You got a potion!!!";
+            label10.Visible = true;
+        }
+        
         character.GainXP(enemy.XpDropped);
         lblEndFightMessage.Text = "You Gained " + Math.Round(enemy.XpDropped) + " xp!";
         lblEndFightMessage.Visible = true;
@@ -127,7 +137,7 @@ namespace GenericRPG {
         }
     }
     }
-
+         
     private void tmrPlayerDamage_Tick(object sender, EventArgs e) {
       lblPlayerDamage.Top -= 2;
       if (lblPlayerDamage.Top < 10) {
@@ -145,5 +155,15 @@ namespace GenericRPG {
         lblEnemyDamage.Top = 52;
       }
     }
-  }
+
+        private void lblEndFightMessage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
