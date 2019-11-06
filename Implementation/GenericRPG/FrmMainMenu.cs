@@ -25,20 +25,26 @@ namespace GenericRPG
 
         private void button2_Click(object sender, EventArgs e)
         {
-            var newForm = new FrmMap();
+            var newForm = new FrmMap(false);
             newForm.Show();
             this.Close();
         }
 
         private void FrmMainMenu_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Application.Exit();
             Close();
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var newForm = new FrmMap(true);
+            newForm.Show();
+            this.Close();
         }
     }
 }
