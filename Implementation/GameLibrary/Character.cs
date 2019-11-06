@@ -25,6 +25,7 @@ namespace GameLibrary {
     private Map map;
     public float XP { get; private set; }
     public bool ShouldLevelUp { get; private set; }
+    public string currentAtt {get; protected set; }
 
     /// <summary>
     /// 
