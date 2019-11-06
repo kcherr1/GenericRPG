@@ -11,8 +11,10 @@ namespace GenericRPG {
     private Character character;
     private Enemy enemy;
     private Random rand;
+    private string enemytype;
 
-    public FrmArena() {
+    public FrmArena(string type) {
+      enemytype = type;
       InitializeComponent();
     }
     private void btnEndFight_Click(object sender, EventArgs e) {
@@ -27,8 +29,12 @@ namespace GenericRPG {
 
       game = Game.GetGame();
       character = game.Character;
-      enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
-
+      if (enemytype == "reg"){
+        enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
+       }
+      if (enemytype == "boss"){
+        enemy = new Boss(Resources.boss);      
+      }
       // stats
       UpdateStats();
 

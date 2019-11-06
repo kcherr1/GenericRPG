@@ -28,7 +28,6 @@ namespace GameLibrary {
 
       XpDropped = (float)rand.NextDouble() * (MAX_XP_DROP - MIN_XP_DROP) + MIN_XP_DROP;
     }
-
     public static string RandName() {
       return names[rand.Next(names.Count)];
     }

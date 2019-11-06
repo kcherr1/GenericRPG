@@ -49,7 +49,7 @@ namespace GenericRPG {
           frmArena.Show();
         }
         if (game.State == GameState.BOSS){
-          FrmBoss frmBoss = new FrmBoss();
+          FrmBoss frmBoss = new FrmArena();
           frmBoss.Show();
         }
       }
