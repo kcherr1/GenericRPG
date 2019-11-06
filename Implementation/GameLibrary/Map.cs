@@ -171,6 +171,8 @@ namespace GameLibrary {
         return false;
       }
       if (pos.row == cY && pos.col == cX) {
+        this.CharacterStartCol = cX;
+        this.CharacterStartRow = cY;
         if(!Directory.Exists("Resources")){
           Directory.CreateDirectory("Resources");
         } else {
