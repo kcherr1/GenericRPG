@@ -12,6 +12,7 @@ namespace GameLibrary {
     FIGHTING,
     DEAD,
     BOSS,
+    WIN,
   }
 
   public class Game {

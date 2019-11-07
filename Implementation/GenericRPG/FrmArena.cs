@@ -23,6 +23,10 @@ namespace GenericRPG {
     private void EndFight() {
       Game.GetGame().ChangeState(GameState.ON_MAP);
       Close();
+      if (enemytype == "boss")
+            {
+                Game.GetGame().ChangeState(GameState.WIN);
+            }
     }
     private void FrmArena_Load(object sender, EventArgs e) {
       rand = new Random();
@@ -30,10 +34,10 @@ namespace GenericRPG {
       game = Game.GetGame();
       character = game.Character;
       if (enemytype == "reg"){
-        enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
+         enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, Enemy.RandName());
        }
       if (enemytype == "boss"){
-        enemy = new Boss(Resources.boss);      
+        enemy = new Boss(character.Level, Resources.boss);      
       }
       // stats
       UpdateStats();
@@ -106,17 +110,30 @@ namespace GenericRPG {
       }
     }
     private void btnRun_Click(object sender, EventArgs e) {
-      if (rand.NextDouble() < 0.25) {
-        lblEndFightMessage.Text = "You Ran Like a Coward!";
-        lblEndFightMessage.Visible = true;
-        Refresh();
-        Thread.Sleep(1200);
-        EndFight();
-      }
-      else {
-        enemy.SimpleAttack(character);
-        UpdateStats();
-      }
+            if (enemytype != "boss")
+            {
+                if (rand.NextDouble() < 0.25)
+                {
+                    lblEndFightMessage.Text = "You Ran Like a Coward!";
+                    lblEndFightMessage.Visible = true;
+                    Refresh();
+                    Thread.Sleep(1200);
+                    EndFight();
+                }
+                else
+                {
+                    enemy.SimpleAttack(character);
+                    UpdateStats();
+                }
+            }
+            else {
+                lblEndFightMessage.Text = "You Can't Run From This!";
+                lblEndFightMessage.Visible = true;
+                Refresh();
+                Thread.Sleep(1000);
+                lblEndFightMessage.Visible = false;
+                Refresh();
+            }
     }
 
     private void tmrPlayerDamage_Tick(object sender, EventArgs e) {

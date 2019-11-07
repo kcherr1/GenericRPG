@@ -114,6 +114,7 @@
     <None Include="Resources\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\boss.jpg" />
     <Content Include="Resources\levelup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

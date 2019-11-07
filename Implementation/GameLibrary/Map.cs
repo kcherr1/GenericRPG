@@ -151,7 +151,10 @@ namespace GameLibrary {
           layout[pos.row, pos.col] == 1) {
         return false;
       }
-      if (rand.NextDouble() < encounterChance) {
+      if(pos.row == 3 & pos.col == 9){
+        Game.GetGame().ChangeState(GameState.BOSS);
+      }
+      else if (rand.NextDouble() < encounterChance) {
         encounterChance = 0.15;
         Game.GetGame().ChangeState(GameState.FIGHTING);
       }

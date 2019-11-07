@@ -45,12 +45,12 @@ namespace GenericRPG {
       if (dir != MoveDir.NO_MOVE) {
         character.Move(dir);
         if (game.State == GameState.FIGHTING) {
-          FrmArena frmArena = new FrmArena();
+          FrmArena frmArena = new FrmArena("reg");
           frmArena.Show();
         }
         if (game.State == GameState.BOSS){
-          FrmBoss frmBoss = new FrmArena();
-          frmBoss.Show();
+          FrmArena frmArena = new FrmArena("boss");
+          frmArena.Show();
         }
       }
     }
