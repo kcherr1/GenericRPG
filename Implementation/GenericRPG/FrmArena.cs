@@ -58,7 +58,16 @@ namespace GenericRPG {
 
       lblPlayerHealth.Text = Math.Round(character.Health).ToString();
       lblEnemyHealth.Text = Math.Round(enemy.Health).ToString();
-    }
+            if (inventory.PotionCount() == 0)
+            {
+                PotionNum.Text = "You have " + inventory.PotionCount() + " potions. \nBeat enemies to get more!";
+            }
+            else
+            {
+                PotionNum.Text = "You have " + inventory.PotionCount() + " potions. \nUse them to enhance your character!";
+            }
+
+        }
     private void btnSimpleAttack_Click(object sender, EventArgs e) {
       float prevEnemyHealth = enemy.Health;
       character.SimpleAttack(enemy);
@@ -162,6 +171,11 @@ namespace GenericRPG {
         }
 
         private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
         {
 
         }

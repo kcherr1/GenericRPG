@@ -19,5 +19,10 @@ namespace GameLibrary
         {
             inventoryCount++;
         }
+
+        public int PotionCount()
+        {
+            return inventoryCount;
+        }
     }
 }
