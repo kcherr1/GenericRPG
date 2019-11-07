@@ -21,6 +21,8 @@ namespace GameLibrary {
     public Character Character { get; private set; }
     public GameState State { get; private set; }
 
+    public Inventory Inventory { get; private set; }
+
     private Game() {
       State = GameState.LOADING;
     }
@@ -37,6 +39,10 @@ namespace GameLibrary {
 
     public void SetCharacter(Character character) {
       Character = character;
+    }
+
+    public void SetInventory(Inventory inventory) {
+        Inventory = inventory;
     }
   }
 }

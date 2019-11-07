@@ -9,8 +9,11 @@ namespace GenericRPG {
     private Character character;
     private Map map;
     private Game game;
+    private Inventory inventory;
+    public bool inCombat;
 
-    public FrmMap() {
+    public FrmMap(bool InCombat) {
+      inCombat = InCombat;
       InitializeComponent();
     }
 
@@ -18,6 +21,7 @@ namespace GenericRPG {
       game = Game.GetGame();
 
       map = new Map();
+      inventory = new Inventory();
       character = map.LoadMap("Resources/level.txt", grpMap, 
         str => Resources.ResourceManager.GetObject(str) as Bitmap
       );
@@ -45,11 +49,11 @@ namespace GenericRPG {
       if (dir != MoveDir.NO_MOVE) {
         character.Move(dir);
         if (game.State == GameState.FIGHTING) {
-          FrmArena frmArena = new FrmArena("reg");
+          FrmArena frmArena = new FrmArena(inventory,"reg");
           frmArena.Show();
         }
         if (game.State == GameState.BOSS){
-          FrmArena frmArena = new FrmArena("boss");
+          FrmArena frmArena = new FrmArena(inventory,"boss");
           frmArena.Show();
         }
       }
