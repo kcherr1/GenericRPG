@@ -100,6 +100,7 @@ namespace GenericRPG {
         Refresh();
         Thread.Sleep(1200);
         EndFight();
+        character.ResetStrDef();
         if (character.ShouldLevelUp) {
           FrmLevelUp frmLevelUp = new FrmLevelUp();
           frmLevelUp.Show();
@@ -114,7 +115,8 @@ namespace GenericRPG {
         tmrPlayerDamage.Enabled = true;
         if (character.Health <= 0) {
           UpdateStats();
-          game.ChangeState(GameState.DEAD);
+                    character.ResetStrDef();
+                    game.ChangeState(GameState.DEAD);
           lblEndFightMessage.Text = "You Were Defeated!";
           lblEndFightMessage.Visible = true;
           Refresh();
