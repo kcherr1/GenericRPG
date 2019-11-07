@@ -82,5 +82,18 @@ namespace GameLibrary {
       float randMult = (float)(rand.NextDouble() * (randMax - randMin)) + randMin;
       receiver.Health -= (baseDamage * randMult);
     }
+
+    public void increaseHealth(int inc)
+    {
+            this.Health += inc;
+    }
+     public void increaseStr(int inc)
+    {
+            this.Str += inc;
+    }
+    public void increaseDef(int inc)
+    {
+            this.Def += inc;
+    }
   }
 }

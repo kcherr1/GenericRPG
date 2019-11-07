@@ -503,6 +503,7 @@ namespace GenericRPG {
             this.button1.TabIndex = 19;
             this.button1.Text = "Health \r\n3 x Potions";
             this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // PotionNum
             // 
@@ -540,6 +541,7 @@ namespace GenericRPG {
             this.button4.TabIndex = 24;
             this.button4.Text = "Strength \r\n2 x Potions";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button5
             // 
@@ -553,6 +555,7 @@ namespace GenericRPG {
             this.button5.TabIndex = 25;
             this.button5.Text = "Defense \r\n1 x Potions";
             this.button5.UseVisualStyleBackColor = false;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // FrmArena
             // 

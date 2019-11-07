@@ -24,5 +24,10 @@ namespace GameLibrary
         {
             return inventoryCount;
         }
+
+        public void decreasePotionCount(int dec)
+        {
+            this.inventoryCount -= dec;
+        }
     }
 }

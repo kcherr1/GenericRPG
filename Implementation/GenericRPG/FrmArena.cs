@@ -77,7 +77,7 @@ namespace GenericRPG {
       tmrEnemyDamage.Enabled = true;
       if (enemy.Health <= 0) {
         int potion = rand.Next(10);
-        if (potion > 5)
+        if (potion > 3)
         {
             inventory.getPotion();
             label10.Text = "You got a potion!!!";
@@ -178,6 +178,36 @@ namespace GenericRPG {
         private void label12_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 3)
+            {
+                character.increaseHealth(10);
+                inventory.decreasePotionCount(3);
+                UpdateStats();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 2)
+            {
+                character.increaseStr(4);
+                inventory.decreasePotionCount(2);
+                UpdateStats();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 1)
+            {
+                character.increaseDef(3);
+                inventory.decreasePotionCount(1);
+                UpdateStats();
+            }
         }
     }
 }
