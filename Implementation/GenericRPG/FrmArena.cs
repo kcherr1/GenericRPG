@@ -77,7 +77,7 @@ namespace GenericRPG {
       tmrEnemyDamage.Enabled = true;
       if (enemy.Health <= 0) {
         int potion = rand.Next(10);
-        if (potion > 3)
+        if (potion > 4)
         {
             inventory.getPotion();
             label10.Text = "You got a potion!!!";
