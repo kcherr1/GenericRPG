@@ -9,10 +9,12 @@ namespace GenericRPG {
   public partial class FrmArena : Form {
     private Game game;
     private Character character;
+    private Inventory inventory;
     private Enemy enemy;
     private Random rand;
 
-    public FrmArena() {
+    public FrmArena(Inventory inv) {
+      inventory = inv;
       InitializeComponent();
     }
     private void btnEndFight_Click(object sender, EventArgs e) {
@@ -56,7 +58,16 @@ namespace GenericRPG {
 
       lblPlayerHealth.Text = Math.Round(character.Health).ToString();
       lblEnemyHealth.Text = Math.Round(enemy.Health).ToString();
-    }
+            if (inventory.PotionCount() == 0)
+            {
+                PotionNum.Text = "You have " + inventory.PotionCount() + " potions. \nBeat enemies to get more!";
+            }
+            else
+            {
+                PotionNum.Text = "You have " + inventory.PotionCount() + " potions. \nUse them to enhance your character!";
+            }
+
+        }
     private void btnSimpleAttack_Click(object sender, EventArgs e) {
       float prevEnemyHealth = enemy.Health;
       character.SimpleAttack(enemy);
@@ -65,6 +76,14 @@ namespace GenericRPG {
       lblEnemyDamage.Visible = true;
       tmrEnemyDamage.Enabled = true;
       if (enemy.Health <= 0) {
+        int potion = rand.Next(10);
+        if (potion > 4)
+        {
+            inventory.getPotion();
+            label10.Text = "You got a potion!!!";
+            label10.Visible = true;
+        }
+        
         character.GainXP(enemy.XpDropped);
         lblEndFightMessage.Text = "You Gained " + Math.Round(enemy.XpDropped) + " xp!";
         lblEndFightMessage.Visible = true;
@@ -127,7 +146,7 @@ namespace GenericRPG {
         }
     }
     }
-
+         
     private void tmrPlayerDamage_Tick(object sender, EventArgs e) {
       lblPlayerDamage.Top -= 2;
       if (lblPlayerDamage.Top < 10) {
@@ -145,5 +164,50 @@ namespace GenericRPG {
         lblEnemyDamage.Top = 52;
       }
     }
-  }
+
+        private void lblEndFightMessage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 3)
+            {
+                character.increaseHealth(10);
+                inventory.decreasePotionCount(3);
+                UpdateStats();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 2)
+            {
+                character.increaseStr(4);
+                inventory.decreasePotionCount(2);
+                UpdateStats();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 1)
+            {
+                character.increaseDef(3);
+                inventory.decreasePotionCount(1);
+                UpdateStats();
+            }
+        }
+    }
 }
