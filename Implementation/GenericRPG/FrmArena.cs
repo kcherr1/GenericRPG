@@ -209,6 +209,7 @@ namespace GenericRPG {
         tmrPlayerDamage.Enabled = false;
         lblPlayerDamage.Top = 52;
       }
+    }
 
     // picks enemy to be one of three enemies
     private Enemy pickEnemy(int level) {
