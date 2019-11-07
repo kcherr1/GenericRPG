@@ -123,8 +123,8 @@
     <None Include="Resources\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\boss.jpg" />
     <None Include="Resources\checkpoint.png" />
+    <Content Include="Resources\boss.png" />
     <Content Include="Resources\levelup.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

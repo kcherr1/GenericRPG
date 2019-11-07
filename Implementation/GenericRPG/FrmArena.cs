@@ -129,41 +129,46 @@ namespace GenericRPG {
       }
     }
     private void btnRun_Click(object sender, EventArgs e) {
-      if (enemytype != "boss") {
-          if (rand.NextDouble() < 0.25) {
-            lblEndFightMessage.Text = "You Ran Like a Coward!";
-            lblEndFightMessage.Visible = true;
-            Refresh();
-            Thread.Sleep(1200);
-            EndFight();
-          }
-          else {
-            enemy.SimpleAttack(character);
-            if (character.Health <= 0)
+            if (enemytype != "boss")
             {
-                UpdateStats();
-                game.ChangeState(GameState.DEAD);
-                lblEndFightMessage.Text = "You Were Defeated!";
-                lblEndFightMessage.Visible = true;
-                Refresh();
-                Thread.Sleep(1200);
-                EndFight();
-                FrmGameOver frmGameOver = new FrmGameOver();
-                frmGameOver.Show();
+                if (rand.NextDouble() < 0.25)
+                {
+                    lblEndFightMessage.Text = "You Ran Like a Coward!";
+                    lblEndFightMessage.Visible = true;
+                    Refresh();
+                    Thread.Sleep(1200);
+                    EndFight();
+                }
+                else
+                {
+                    enemy.SimpleAttack(character);
+                    if (character.Health <= 0)
+                    {
+                        UpdateStats();
+                        game.ChangeState(GameState.DEAD);
+                        lblEndFightMessage.Text = "You Were Defeated!";
+                        lblEndFightMessage.Visible = true;
+                        Refresh();
+                        Thread.Sleep(1200);
+                        EndFight();
+                        FrmGameOver frmGameOver = new FrmGameOver();
+                        frmGameOver.Show();
+                    }
+                    else
+                    {
+                        UpdateStats();
+                    }
+                }
             }
             else
             {
-                UpdateStats();
+                lblEndFightMessage.Text = "You Can't Run From This!";
+                lblEndFightMessage.Visible = true;
+                Refresh();
+                Thread.Sleep(1000);
+                lblEndFightMessage.Visible = false;
+                Refresh();
             }
-        }
-      else {
-          lblEndFightMessage.Text = "You Can't Run From This!";
-          lblEndFightMessage.Visible = true;
-          Refresh();
-          Thread.Sleep(1000);
-          lblEndFightMessage.Visible = false;
-          Refresh();
-      }
     }
          
     private void tmrPlayerDamage_Tick(object sender, EventArgs e) {
