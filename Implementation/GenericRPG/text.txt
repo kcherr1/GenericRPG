@@ -1,0 +1,1 @@
+Visual bugs, and white rectangle at top left of combat screen. Also, mana replaced with "attack". 
