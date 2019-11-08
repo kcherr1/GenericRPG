@@ -121,7 +121,7 @@
       this.lblPlayerMana.Name = "lblPlayerMana";
       this.lblPlayerMana.Size = new System.Drawing.Size(57, 20);
       this.lblPlayerMana.TabIndex = 5;
-      this.lblPlayerMana.Text = "label1";
+      this.lblPlayerMana.Text = "";
       // 
       // label1
       // 
@@ -132,7 +132,7 @@
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(58, 20);
       this.label1.TabIndex = 9;
-      this.label1.Text = "Mana:"; // WAS PREVIOUS "mana:
+      this.label1.Text = "Attack:"; // WAS PREVIOUS "mana:
       this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
       // 
       // label2
@@ -324,7 +324,7 @@
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(58, 20);
       this.label8.TabIndex = 9;
-      this.label8.Text = "Mana:";
+      this.label8.Text = "Attack:";
       this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
       // 
       // picEnemy
@@ -403,11 +403,11 @@
       this.lblEnemyMana.Name = "lblEnemyMana";
       this.lblEnemyMana.Size = new System.Drawing.Size(57, 20);
       this.lblEnemyMana.TabIndex = 5;
-      this.lblEnemyMana.Text = "label1";
+      this.lblEnemyMana.Text = "";
       // 
       // btnLightAttack = Formerly known as "btnSimpleAttack"
       // 
-      this.btnLightAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+      this.btnLightAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
       this.btnLightAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.btnLightAttack.Location = new System.Drawing.Point(306, 146);
       this.btnLightAttack.Name = "btnLightAttack";

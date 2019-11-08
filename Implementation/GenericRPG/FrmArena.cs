@@ -47,7 +47,7 @@ namespace GenericRPG {
       lblPlayerHealth.Text = Math.Round(character.Health).ToString();
       lblPlayerStr.Text = Math.Round(character.Str).ToString();
       lblPlayerDef.Text = Math.Round(character.Def).ToString();
-      lblPlayerMana.Text = Math.Round(character.Mana).ToString();
+      
       lblPlayerXp.Text = Math.Round(character.XP).ToString();
 
       lblEnemyLevel.Text = enemy.Level.ToString();
@@ -121,6 +121,8 @@ namespace GenericRPG {
     private void btnLightAttack_Click(object sender, EventArgs e) {
       this.btnLightAttack.Click -= btnLightAttack_Click;
       this.enemyAtt = randomAtt();
+      //sets players att
+      lblPlayerMana.Text = "Light Attack";
       if (this.enemyAtt == "LA") {
         //tie() <-- nothing happens
       }
@@ -146,6 +148,7 @@ namespace GenericRPG {
     private void btnHeavyAttack_Click(object sender, EventArgs e) {
       this.btnHeavyAttack.Click -= btnHeavyAttack_Click;
       this.enemyAtt = randomAtt();
+      lblPlayerMana.Text = "Heavy Attack";
       if (this.enemyAtt == "LA") {
         win();
       }
@@ -171,6 +174,7 @@ namespace GenericRPG {
     private void btnParry_Click(object sender, EventArgs e) {
       this.btnParry.Click -= btnParry_Click;
       this.enemyAtt = randomAtt();
+      lblPlayerMana.Text = "Parry";
       if (this.enemyAtt == "LA") {
         lose();
       }
