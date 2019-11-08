@@ -52,8 +52,12 @@
       this.lblEnemyDef = new System.Windows.Forms.Label();
       this.label13 = new System.Windows.Forms.Label();
       this.lblEnemyMana = new System.Windows.Forms.Label();
-      this.btnSimpleAttack = new System.Windows.Forms.Button();
-      this.btnMagicAttack = new System.Windows.Forms.Button();
+      this.btnLightAttack = new System.Windows.Forms.Button();
+      this.btnHeavyAttack = new System.Windows.Forms.Button();
+      this.btnParry = new System.Windows.Forms.Button();
+      
+      this.btnHeavyAttack = new System.Windows.Forms.Button();
+      this.btnParry = new System.Windows.Forms.Button();
       this.btnRun = new System.Windows.Forms.Button();
       this.lblEndFightMessage = new System.Windows.Forms.Label();
       this.lblPlayerDamage = new System.Windows.Forms.Label();
@@ -117,7 +121,7 @@
       this.lblPlayerMana.Name = "lblPlayerMana";
       this.lblPlayerMana.Size = new System.Drawing.Size(57, 20);
       this.lblPlayerMana.TabIndex = 5;
-      this.lblPlayerMana.Text = "label1";
+      this.lblPlayerMana.Text = "";
       // 
       // label1
       // 
@@ -128,7 +132,7 @@
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(58, 20);
       this.label1.TabIndex = 9;
-      this.label1.Text = "Mana:";
+      this.label1.Text = "Attack:"; // WAS PREVIOUS "mana:
       this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
       // 
       // label2
@@ -320,7 +324,7 @@
       this.label8.Name = "label8";
       this.label8.Size = new System.Drawing.Size(58, 20);
       this.label8.TabIndex = 9;
-      this.label8.Text = "Mana:";
+      this.label8.Text = "Attack:";
       this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
       // 
       // picEnemy
@@ -399,42 +403,56 @@
       this.lblEnemyMana.Name = "lblEnemyMana";
       this.lblEnemyMana.Size = new System.Drawing.Size(57, 20);
       this.lblEnemyMana.TabIndex = 5;
-      this.lblEnemyMana.Text = "label1";
+      this.lblEnemyMana.Text = "";
       // 
-      // btnSimpleAttack
+      // btnLightAttack = Formerly known as "btnSimpleAttack"
       // 
-      this.btnSimpleAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-      this.btnSimpleAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.btnSimpleAttack.Location = new System.Drawing.Point(306, 146);
-      this.btnSimpleAttack.Name = "btnSimpleAttack";
-      this.btnSimpleAttack.Size = new System.Drawing.Size(86, 46);
-      this.btnSimpleAttack.TabIndex = 13;
-      this.btnSimpleAttack.Text = "Simple Attack";
-      this.btnSimpleAttack.UseVisualStyleBackColor = false;
-      this.btnSimpleAttack.Click += new System.EventHandler(this.btnSimpleAttack_Click);
+      this.btnLightAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+      this.btnLightAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnLightAttack.Location = new System.Drawing.Point(306, 146);
+      this.btnLightAttack.Name = "btnLightAttack";
+      this.btnLightAttack.Size = new System.Drawing.Size(86, 46);
+      this.btnLightAttack.TabIndex = 13;
+      this.btnLightAttack.Text = "Light Attack";
+      this.btnLightAttack.UseVisualStyleBackColor = false;
+      this.btnLightAttack.Click += new System.EventHandler(this.btnLightAttack_Click);
       // 
-      // btnMagicAttack
+      // btnHeavyAttack
       // 
-      this.btnMagicAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-      this.btnMagicAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.btnMagicAttack.Location = new System.Drawing.Point(305, 202);
-      this.btnMagicAttack.Name = "btnMagicAttack";
-      this.btnMagicAttack.Size = new System.Drawing.Size(86, 46);
-      this.btnMagicAttack.TabIndex = 14;
-      this.btnMagicAttack.Text = "Magic Attack";
-      this.btnMagicAttack.UseVisualStyleBackColor = false;
+      this.btnHeavyAttack.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+      this.btnHeavyAttack.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnHeavyAttack.Location = new System.Drawing.Point(305, 202);
+      this.btnHeavyAttack.Name = "btnHeavyAttack";
+      this.btnHeavyAttack.Size = new System.Drawing.Size(86, 46);
+      this.btnHeavyAttack.TabIndex = 14;
+      this.btnHeavyAttack.Text = "Heavy Attack";
+      this.btnHeavyAttack.UseVisualStyleBackColor = false;
+      this.btnHeavyAttack.Click += new System.EventHandler(this.btnHeavyAttack_Click);
+      // 
+      // btnParry
+      // 
+      this.btnParry.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+      this.btnParry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.btnParry.Location = new System.Drawing.Point(306, 257);
+      this.btnParry.Name = "btnParry";
+      this.btnParry.Size = new System.Drawing.Size(86, 46);
+      this.btnParry.TabIndex = 14;
+      this.btnParry.Text = "Parry";
+      this.btnParry.UseVisualStyleBackColor = false;
+      this.btnParry.Click += new System.EventHandler(this.btnParry_Click);
       // 
       // btnRun
       // 
-      this.btnRun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-      this.btnRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.btnRun.Location = new System.Drawing.Point(306, 257);
-      this.btnRun.Name = "btnRun";
-      this.btnRun.Size = new System.Drawing.Size(86, 46);
-      this.btnRun.TabIndex = 15;
-      this.btnRun.Text = "Run";
-      this.btnRun.UseVisualStyleBackColor = false;
-      this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+      //this.btnRun.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+      //this.btnRun.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      //this.btnRun.Location = new System.Drawing.Point(306, 257);
+      //this.btnRun.Name = "btnRun";
+      //this.btnRun.Size = new System.Drawing.Size(86, 46);
+      //this.btnRun.TabIndex = 15;
+      //this.btnRun.Text = "Run";
+      //this.btnRun.UseVisualStyleBackColor = false;
+      //this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
+      
       // 
       // lblEndFightMessage
       // 
@@ -471,15 +489,16 @@
       this.lblEnemyDamage.TabIndex = 16;
       this.lblEnemyDamage.Text = "label10";
       this.lblEnemyDamage.Visible = false;
+
       // 
       // tmrPlayerDamage
       // 
-      this.tmrPlayerDamage.Interval = 20;
+      this.tmrPlayerDamage.Interval = 50;
       this.tmrPlayerDamage.Tick += new System.EventHandler(this.tmrPlayerDamage_Tick);
       // 
       // tmrEnemyDamage
       // 
-      this.tmrEnemyDamage.Interval = 20;
+      this.tmrEnemyDamage.Interval = 50;
       this.tmrEnemyDamage.Tick += new System.EventHandler(this.tmrEnemyDamage_Tick);
       // 
       // FrmArena
@@ -490,8 +509,9 @@
       this.ClientSize = new System.Drawing.Size(706, 501);
       this.Controls.Add(this.lblEndFightMessage);
       this.Controls.Add(this.btnRun);
-      this.Controls.Add(this.btnMagicAttack);
-      this.Controls.Add(this.btnSimpleAttack);
+      this.Controls.Add(this.btnHeavyAttack);
+      this.Controls.Add(this.btnLightAttack);
+      this.Controls.Add(this.btnParry);
       this.Controls.Add(this.panel2);
       this.Controls.Add(this.panel1);
       this.Name = "FrmArena";
@@ -535,8 +555,9 @@
     private System.Windows.Forms.Label label6;
     private System.Windows.Forms.Label lblEnemyLevel;
     private System.Windows.Forms.Label label7;
-    private System.Windows.Forms.Button btnSimpleAttack;
-    private System.Windows.Forms.Button btnMagicAttack;
+    private System.Windows.Forms.Button btnLightAttack;
+    private System.Windows.Forms.Button btnHeavyAttack;
+    private System.Windows.Forms.Button btnParry;
     private System.Windows.Forms.Button btnRun;
     private System.Windows.Forms.Label lblEndFightMessage;
     private System.Windows.Forms.Label label5;

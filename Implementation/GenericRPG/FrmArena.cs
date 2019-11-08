@@ -6,11 +6,13 @@ using System.Threading;
 using System.Windows.Forms;
 
 namespace GenericRPG {
+
   public partial class FrmArena : Form {
     private Game game;
     private Character character;
     private Enemy enemy;
     private Random rand;
+    private string enemyAtt = "";
 
     public FrmArena() {
       InitializeComponent();
@@ -27,7 +29,7 @@ namespace GenericRPG {
 
       game = Game.GetGame();
       character = game.Character;
-      enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
+      enemy = pickEnemy(rand.Next(character.Level + 1));
 
       // stats
       UpdateStats();
@@ -45,27 +47,56 @@ namespace GenericRPG {
       lblPlayerHealth.Text = Math.Round(character.Health).ToString();
       lblPlayerStr.Text = Math.Round(character.Str).ToString();
       lblPlayerDef.Text = Math.Round(character.Def).ToString();
-      lblPlayerMana.Text = Math.Round(character.Mana).ToString();
+      
       lblPlayerXp.Text = Math.Round(character.XP).ToString();
 
       lblEnemyLevel.Text = enemy.Level.ToString();
       lblEnemyHealth.Text = Math.Round(enemy.Health).ToString();
       lblEnemyStr.Text = Math.Round(enemy.Str).ToString();
       lblEnemyDef.Text = Math.Round(enemy.Def).ToString();
-      lblEnemyMana.Text = Math.Round(enemy.Mana).ToString();
+      //lblEnemyMana.Text = Math.Round(enemy.Mana).ToString();
 
       lblPlayerHealth.Text = Math.Round(character.Health).ToString();
       lblEnemyHealth.Text = Math.Round(enemy.Health).ToString();
     }
-    private void btnSimpleAttack_Click(object sender, EventArgs e) {
+    private string randomAtt() {
+      int attNum  = this.rand.Next(1, 4);
+      string att = "";
+      if (attNum == 1) {
+        att = "LA";
+        lblEnemyMana.Text = "Light Attack";
+      }
+      else if (attNum == 2) {
+        att = "HA";
+        lblEnemyMana.Text = "Heavy Attack";
+      }
+      else if (attNum == 3) {
+        att = "P";
+        lblEnemyMana.Text = "Parry";
+      }
+      else return "oops";
+      return att;
+    }
+    private void lose() {
+      float prevPlayerHealth = character.Health;
+        enemy.SimpleAttack(character);
+        float playerDamage = (float)Math.Round(prevPlayerHealth - character.Health);
+        // display the damage
+        lblPlayerDamage.Text = playerDamage.ToString();
+        lblPlayerDamage.Visible = true;
+        tmrPlayerDamage.Enabled = true;
+    }
+    private void win() {
       float prevEnemyHealth = enemy.Health;
-      character.SimpleAttack(enemy);
-      float enemyDamage = (float)Math.Round(prevEnemyHealth - enemy.Health);
-      lblEnemyDamage.Text = enemyDamage.ToString();
-      lblEnemyDamage.Visible = true;
-      tmrEnemyDamage.Enabled = true;
-      if (enemy.Health <= 0) {
-        character.GainXP(enemy.XpDropped);
+        character.SimpleAttack(enemy);
+        float enemyDamage = (float)Math.Round(prevEnemyHealth - enemy.Health);
+        // display the damage
+        lblEnemyDamage.Text = enemyDamage.ToString();
+        lblEnemyDamage.Visible = true;
+        tmrEnemyDamage.Enabled = true;
+    }
+    private void enemyDies() {
+      character.GainXP(enemy.XpDropped);
         lblEndFightMessage.Text = "You Gained " + Math.Round(enemy.XpDropped) + " xp!";
         lblEndFightMessage.Visible = true;
         Refresh();
@@ -75,41 +106,103 @@ namespace GenericRPG {
           FrmLevelUp frmLevelUp = new FrmLevelUp();
           frmLevelUp.Show();
         }
-      }
-      else {
-        float prevPlayerHealth = character.Health;
-        enemy.SimpleAttack(character);
-        float playerDamage = (float)Math.Round(prevPlayerHealth - character.Health);
-        lblPlayerDamage.Text = playerDamage.ToString();
-        lblPlayerDamage.Visible = true;
-        tmrPlayerDamage.Enabled = true;
-        if (character.Health <= 0) {
-          UpdateStats();
-          game.ChangeState(GameState.DEAD);
-          lblEndFightMessage.Text = "You Were Defeated!";
-          lblEndFightMessage.Visible = true;
-          Refresh();
-          Thread.Sleep(1200);
-          EndFight();
-          FrmGameOver frmGameOver = new FrmGameOver();
-          frmGameOver.Show();
-        }
-        else {
-          UpdateStats();
-        }
-      }
     }
-    private void btnRun_Click(object sender, EventArgs e) {
-      if (rand.NextDouble() < 0.25) {
-        lblEndFightMessage.Text = "You Ran Like a Coward!";
+    private void playerDies() {
+      UpdateStats();
+        game.ChangeState(GameState.DEAD);
+        lblEndFightMessage.Text = "You Were Defeated!";
         lblEndFightMessage.Visible = true;
         Refresh();
         Thread.Sleep(1200);
         EndFight();
+        FrmGameOver frmGameOver = new FrmGameOver();
+        frmGameOver.Show();
+    } 
+    private void btnLightAttack_Click(object sender, EventArgs e) {
+      this.btnLightAttack.Click -= btnLightAttack_Click;
+      this.enemyAtt = randomAtt();
+      //sets players att
+      lblPlayerMana.Text = "Light Attack";
+      if (this.enemyAtt == "LA") {
+        //tie() <-- nothing happens
       }
+      else if (this.enemyAtt == "HA") {
+        lose();
+      }
+      else { //(this.enemyAtt == "P")
+        win();
+      }
+      if (enemy.Health <= 0) {
+        enemyDies();
+      }
+      else if (character.Health <= 0) {
+        playerDies();
+      }
+      //nobody dead
       else {
-        enemy.SimpleAttack(character);
         UpdateStats();
+      }
+      this.btnLightAttack.Click += btnLightAttack_Click;
+    }
+
+    private void btnHeavyAttack_Click(object sender, EventArgs e) {
+      this.btnHeavyAttack.Click -= btnHeavyAttack_Click;
+      this.enemyAtt = randomAtt();
+      lblPlayerMana.Text = "Heavy Attack";
+      if (this.enemyAtt == "LA") {
+        win();
+      }
+      else if (this.enemyAtt == "HA") {
+        //tie() <-- nothing happens
+      }
+      else { //(this.enemyAtt == "P")
+        lose();
+      }
+      if (enemy.Health <= 0) {
+        enemyDies();
+      }
+      else if (character.Health <= 0) {
+        playerDies();
+      }
+      //nobody dead
+      else {
+        UpdateStats();
+      }
+      this.btnHeavyAttack.Click += btnHeavyAttack_Click;
+    }
+
+    private void btnParry_Click(object sender, EventArgs e) {
+      this.btnParry.Click -= btnParry_Click;
+      this.enemyAtt = randomAtt();
+      lblPlayerMana.Text = "Parry";
+      if (this.enemyAtt == "LA") {
+        lose();
+      }
+      else if (this.enemyAtt == "HA") {
+        win();
+      }
+      else { //(this.enemyAtt == "P")
+        //tie() <-- nothing happens
+      }
+      if (enemy.Health <= 0) {
+        enemyDies();
+      }
+      else if (character.Health <= 0) {
+        playerDies();
+      }
+      //nobody dead
+      else {
+        UpdateStats();
+      }
+      this.btnParry.Click += btnParry_Click;
+    }
+
+    private void tmrEnemyDamage_Tick(object sender, EventArgs e) {
+      lblEnemyDamage.Top -= 2;
+      if (lblEnemyDamage.Top < 10) {
+        lblEnemyDamage.Visible = false;
+        tmrEnemyDamage.Enabled = false;
+        lblEnemyDamage.Top = 52;
       }
     }
 
@@ -122,13 +215,15 @@ namespace GenericRPG {
       }
     }
 
-    private void tmrEnemyDamage_Tick(object sender, EventArgs e) {
-      lblEnemyDamage.Top -= 2;
-      if (lblEnemyDamage.Top < 10) {
-        lblEnemyDamage.Visible = false;
-        tmrEnemyDamage.Enabled = false;
-        lblEnemyDamage.Top = 52;
-      }
+    // picks enemy to be one of three enemies
+    private Enemy pickEnemy(int level) {
+      int enemyType = rand.Next(0,3);
+      if (enemyType == 0)
+        return new Enemy(level, Resources.metroid, EnemyType.ArmorBoy);
+      else if (enemyType == 1)
+        return new Enemy(level, Resources.goomba, EnemyType.ThiccBoi);
+      else
+        return new Enemy(level, Resources.octorok, EnemyType.GlassCannon);
     }
   }
 }
