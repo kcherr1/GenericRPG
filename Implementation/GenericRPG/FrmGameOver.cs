@@ -42,7 +42,7 @@ namespace GenericRPG {
 
         private void FrmGameOver_Load(object sender, EventArgs e)
         {
-            SoundPlayer sp = new SoundPlayer(@"C:\Users\Layne\Desktop\GenericRPG_TeamMagenta-master\GenericRPG_TeamMagenta-master\Implementation\GenericRPG\Resources\dead.wav");
+            SoundPlayer sp = new SoundPlayer(AppDomain.CurrentDomain.BaseDirectory + @"..\..\Resources\dead.wav");
             sp.Play();
         }
     }

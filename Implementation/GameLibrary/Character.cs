@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using System.Media;
+using System;
 
 namespace GameLibrary {
   public struct Position {
@@ -76,7 +77,7 @@ namespace GameLibrary {
         }
 
         public void Move(MoveDir dir) {
-            SoundPlayer sp = new SoundPlayer(@"C:\Users\Layne\Desktop\GenericRPG_TeamMagenta-master\GenericRPG_TeamMagenta-master\Implementation\GenericRPG\Resources\step.wav");
+            SoundPlayer sp = new SoundPlayer(AppDomain.CurrentDomain.BaseDirectory + @"..\..\Resources\step.wav");
             Position newPos = pos;
       switch (dir) {
         case MoveDir.UP:
