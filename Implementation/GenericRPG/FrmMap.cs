@@ -21,11 +21,12 @@ namespace GenericRPG {
       game = Game.GetGame();
 
       map = new Map();
-      inventory = new Inventory();
+      
       character = map.LoadMap("Resources/level.txt", grpMap, 
         str => Resources.ResourceManager.GetObject(str) as Bitmap
       );
-      Width = grpMap.Width + 25;
+            inventory = character.getInv();
+            Width = grpMap.Width + 25;
       Height = grpMap.Height + 50;
       game.SetCharacter(character);
     }
