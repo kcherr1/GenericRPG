@@ -170,7 +170,10 @@ namespace GameLibrary {
           layout[pos.row, pos.col] == 1) {
         return false;
       }
-      if (pos.row == cY && pos.col == cX) {
+      if(pos.row == 3 & pos.col == 9){
+        Game.GetGame().ChangeState(GameState.BOSS);
+      }
+      else if (pos.row == cY && pos.col == cX) {
         this.CharacterStartCol = cX;
         this.CharacterStartRow = cY;
         if(!Directory.Exists("Resources")){

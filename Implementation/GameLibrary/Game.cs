@@ -11,6 +11,8 @@ namespace GameLibrary {
     ON_MAP,
     FIGHTING,
     DEAD,
+    BOSS,
+    WIN,
   }
 
   public class Game {
