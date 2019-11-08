@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.Media;
 
 namespace GameLibrary {
   public struct Position {
@@ -51,6 +52,7 @@ namespace GameLibrary {
     public override void LevelUp() {
       base.LevelUp();
       ShouldLevelUp = false;
+
     }
 
     public void BackToStart() {
@@ -64,23 +66,34 @@ namespace GameLibrary {
     public override void ResetStats() {
       base.ResetStats();
       XP = 0;
+      LevelExp = 0;
     }
+        public void ResetStats2()
+        {
+            base.ResetStats();
+            XP = this.LevelExp;
+        }
 
-    public void Move(MoveDir dir) {
-      Position newPos = pos;
+        public void Move(MoveDir dir) {
+            SoundPlayer sp = new SoundPlayer(@"C:\Users\Layne\Desktop\GenericRPG_TeamMagenta-master\GenericRPG_TeamMagenta-master\Implementation\GenericRPG\Resources\step.wav");
+            Position newPos = pos;
       switch (dir) {
         case MoveDir.UP:
           newPos.row--;
-          break;
+                    sp.Play();
+                    break;
         case MoveDir.DOWN:
           newPos.row++;
-          break;
+                    sp.Play();
+                    break;
         case MoveDir.LEFT:
           newPos.col--;
-          break;
+                    sp.Play();
+                    break;
         case MoveDir.RIGHT:
           newPos.col++;
-          break;
+                    sp.Play();
+                    break;
       }
       if (map.IsValidPos(newPos)) {
         pos = newPos;

@@ -1,5 +1,6 @@
 ﻿using GameLibrary;
 using System;
+using System.Media;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
@@ -23,10 +24,26 @@ namespace GenericRPG {
 
     private void btnPlayAgain_Click(object sender, EventArgs e) {
       Game game = Game.GetGame();
-      game.Character.ResetStats();
+      game.Character.ResetStats2();
       game.Character.BackToStart();
       game.ChangeState(GameState.ON_MAP);
       Close();
     }
-  }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Game game = Game.GetGame();
+            game.Character.ResetStats();
+            game.Character.BackToStart();
+            game.ChangeState(GameState.ON_MAP);
+            Close();
+
+        }
+
+        private void FrmGameOver_Load(object sender, EventArgs e)
+        {
+            SoundPlayer sp = new SoundPlayer(@"C:\Users\Layne\Desktop\GenericRPG_TeamMagenta-master\GenericRPG_TeamMagenta-master\Implementation\GenericRPG\Resources\dead.wav");
+            sp.Play();
+        }
+    }
 }

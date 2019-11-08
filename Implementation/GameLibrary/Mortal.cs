@@ -22,6 +22,7 @@ namespace GameLibrary {
 
     public string Name { get; protected set; }
     public int Level { get; protected set; }
+    public int LevelExp { get; protected set; }
     public float MaxHealth { get; protected set; }
     public float Health { get; protected set; }
     public float MaxMana { get; protected set; }
@@ -55,7 +56,8 @@ namespace GameLibrary {
         LevelUp();
       }
     }
-    public virtual void LevelUp() {
+       
+        public virtual void LevelUp() {
       // level increases
       Level++;
 
@@ -70,6 +72,7 @@ namespace GameLibrary {
       Def += LVLINC_DEF;
       Luck += LVLINC_LUCK;
       Speed += LVLINC_SPEED;
+            LevelExp += 10;
     }
     public void RefillHealthAndMana() {
       Health = MaxHealth;
