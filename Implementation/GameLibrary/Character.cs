@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using System.IO;
 
 namespace GameLibrary {
   public struct Position {
@@ -23,6 +24,7 @@ namespace GameLibrary {
     public PictureBox Pic { get; private set; }
     private Position pos;
     private Map map;
+    private Inventory inventory;
     public float XP { get; private set; }
     public bool ShouldLevelUp { get; private set; }
 
@@ -36,6 +38,7 @@ namespace GameLibrary {
       Pic = pb;
       this.pos = pos;
       this.map = map;
+      this.inventory = new Inventory();
       ShouldLevelUp = false;
     }
 
@@ -65,6 +68,72 @@ namespace GameLibrary {
       base.ResetStats();
       XP = 0;
     }
+    public Inventory getInv()
+    {
+        return this.inventory;
+    }
+    public void SetStats(string statfile){
+      using (FileStream fs = new FileStream(statfile, FileMode.Open)) {
+        using (StreamReader sr = new StreamReader(fs)) {
+          string line = sr.ReadLine();
+          int i = 0;
+          float fvar;
+          int ivar;
+          while (line != null){
+            switch (i) {
+              case 0:
+                float.TryParse(line, out fvar);
+                Health = fvar;
+                break;
+              case 1:
+                float.TryParse(line, out fvar);
+                MaxHealth = fvar;
+                break;
+              case 2:
+                float.TryParse(line, out fvar);
+                Mana = fvar;
+                break;
+              case 3:
+                float.TryParse(line, out fvar);
+                MaxMana = fvar;
+                break;
+              case 4:
+                float.TryParse(line, out fvar);
+                Str = fvar;
+                break;
+              case 5:
+                float.TryParse(line, out fvar);
+                Def = fvar;
+                break;
+              case 6:
+                float.TryParse(line, out fvar);
+                Luck = fvar;
+                break;
+              case 7:
+                float.TryParse(line, out fvar);
+                Speed = fvar;
+                break;
+              case 8:
+                float.TryParse(line, out fvar);
+                XP = fvar;
+                break;
+              case 9:
+                ShouldLevelUp = (line == "true" ? true : false);
+                break;
+              case 10:
+                int.TryParse(line, out ivar);
+                Level = ivar;
+                break;
+              case 11:
+                Name = line;
+                break;
+            }
+            line=sr.ReadLine();
+            i++;
+          }
+        }
+      }
+    }
 
     public void Move(MoveDir dir) {
       Position newPos = pos;
@@ -82,7 +151,7 @@ namespace GameLibrary {
           newPos.col++;
           break;
       }
-      if (map.IsValidPos(newPos)) {
+      if (map.IsValidPos(newPos, map.CheckX, map.CheckY, this)) {
         pos = newPos;
         Position topleft = map.RowColToTopLeft(pos);
         Pic.Left = topleft.col;

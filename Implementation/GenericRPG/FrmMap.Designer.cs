@@ -1,4 +1,7 @@
-﻿namespace GenericRPG {
+﻿using System;
+using System.Windows.Forms;
+
+namespace GenericRPG {
   partial class FrmMap {
     /// <summary>
     /// Required designer variable.
@@ -50,8 +53,19 @@
 
     }
 
-    #endregion
-    private System.Windows.Forms.GroupBox grpMap;
-  }
+        protected override void OnClosed(EventArgs e)
+        {
+            var newForm = new FrmMainMenu();
+            newForm.ControlBox = false;
+            newForm.Show();
+            base.OnClosed(e);
+        }
+
+
+
+        #endregion
+        private System.Windows.Forms.GroupBox grpMap;
+
+    }
 }
 

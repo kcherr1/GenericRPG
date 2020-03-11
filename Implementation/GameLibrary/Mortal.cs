@@ -28,6 +28,8 @@ namespace GameLibrary {
     public float Mana { get; protected set; }
     public float Str { get; protected set; }
     public float Def { get; protected set; }
+    public float MapStr { get; protected set; }
+    public float MapDef { get; protected set; }
     public float Luck { get; protected set; }
     public float Speed { get; protected set; }
 
@@ -47,6 +49,8 @@ namespace GameLibrary {
       Mana = MaxMana;
       Str = INIT_STR;
       Def = INIT_DEF;
+      MapStr = Str;
+      MapDef = Def;
       Luck = INIT_LUCK;
       Speed = INIT_SPEED;
     }
@@ -68,6 +72,8 @@ namespace GameLibrary {
       // other stats
       Str += LVLINC_STR;
       Def += LVLINC_DEF;
+      MapStr = Str;
+      MapDef = Def;
       Luck += LVLINC_LUCK;
       Speed += LVLINC_SPEED;
     }
@@ -75,12 +81,30 @@ namespace GameLibrary {
       Health = MaxHealth;
       Mana = MaxMana;
     }
+    public void ResetStrDef()
+    {
+            Str = MapStr;
+            Def = MapDef;
+    }
     public void SimpleAttack(Mortal receiver) {
       float baseDamage = Math.Abs(Str * 1.2f - receiver.Def);
       float randMax = 1 + SIMPLEATTACK_RANDOM_AMT;
       float randMin = 1 - SIMPLEATTACK_RANDOM_AMT;
       float randMult = (float)(rand.NextDouble() * (randMax - randMin)) + randMin;
       receiver.Health -= (baseDamage * randMult);
+    }
+
+    public void increaseHealth(int inc)
+    {
+            this.Health += inc;
+    }
+     public void increaseStr(int inc)
+    {
+            this.Str += inc;
+    }
+    public void increaseDef(int inc)
+    {
+            this.Def += inc;
     }
   }
 }

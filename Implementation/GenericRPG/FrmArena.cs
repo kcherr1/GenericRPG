@@ -9,10 +9,14 @@ namespace GenericRPG {
   public partial class FrmArena : Form {
     private Game game;
     private Character character;
+    private Inventory inventory;
     private Enemy enemy;
     private Random rand;
+    private string enemytype;
 
-    public FrmArena() {
+    public FrmArena(Inventory inv,string type) {
+      enemytype = type;
+      inventory = inv;
       InitializeComponent();
     }
     private void btnEndFight_Click(object sender, EventArgs e) {
@@ -21,14 +25,22 @@ namespace GenericRPG {
     private void EndFight() {
       Game.GetGame().ChangeState(GameState.ON_MAP);
       Close();
+      if (enemytype == "boss")
+            {
+                Game.GetGame().ChangeState(GameState.WIN);
+            }
     }
     private void FrmArena_Load(object sender, EventArgs e) {
       rand = new Random();
 
       game = Game.GetGame();
       character = game.Character;
-      enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy);
-
+      if (enemytype == "reg"){
+         enemy = new Enemy(rand.Next(character.Level + 1), Resources.enemy, Enemy.RandName());
+       }
+      if (enemytype == "boss"){
+        enemy = new Boss(character.Level, Resources.boss);      
+      }
       // stats
       UpdateStats();
 
@@ -56,7 +68,16 @@ namespace GenericRPG {
 
       lblPlayerHealth.Text = Math.Round(character.Health).ToString();
       lblEnemyHealth.Text = Math.Round(enemy.Health).ToString();
-    }
+            if (inventory.PotionCount() == 0)
+            {
+                PotionNum.Text = "You have " + inventory.PotionCount() + " potions. \nBeat enemies to get more!";
+            }
+            else
+            {
+                PotionNum.Text = "You have " + inventory.PotionCount() + " potions. \nUse them to enhance your character!";
+            }
+
+        }
     private void btnSimpleAttack_Click(object sender, EventArgs e) {
       float prevEnemyHealth = enemy.Health;
       character.SimpleAttack(enemy);
@@ -65,12 +86,21 @@ namespace GenericRPG {
       lblEnemyDamage.Visible = true;
       tmrEnemyDamage.Enabled = true;
       if (enemy.Health <= 0) {
+        int potion = rand.Next(10);
+        if (potion > 4)
+        {
+            inventory.getPotion();
+            label10.Text = "You got a potion!!!";
+            label10.Visible = true;
+        }
+        
         character.GainXP(enemy.XpDropped);
         lblEndFightMessage.Text = "You Gained " + Math.Round(enemy.XpDropped) + " xp!";
         lblEndFightMessage.Visible = true;
         Refresh();
         Thread.Sleep(1200);
         EndFight();
+        character.ResetStrDef();
         if (character.ShouldLevelUp) {
           FrmLevelUp frmLevelUp = new FrmLevelUp();
           frmLevelUp.Show();
@@ -85,7 +115,8 @@ namespace GenericRPG {
         tmrPlayerDamage.Enabled = true;
         if (character.Health <= 0) {
           UpdateStats();
-          game.ChangeState(GameState.DEAD);
+                    character.ResetStrDef();
+                    game.ChangeState(GameState.DEAD);
           lblEndFightMessage.Text = "You Were Defeated!";
           lblEndFightMessage.Visible = true;
           Refresh();
@@ -100,19 +131,48 @@ namespace GenericRPG {
       }
     }
     private void btnRun_Click(object sender, EventArgs e) {
-      if (rand.NextDouble() < 0.25) {
-        lblEndFightMessage.Text = "You Ran Like a Coward!";
-        lblEndFightMessage.Visible = true;
-        Refresh();
-        Thread.Sleep(1200);
-        EndFight();
-      }
-      else {
-        enemy.SimpleAttack(character);
-        UpdateStats();
-      }
+            if (enemytype != "boss")
+            {
+                if (rand.NextDouble() < 0.25)
+                {
+                    lblEndFightMessage.Text = "You Ran Like a Coward!";
+                    lblEndFightMessage.Visible = true;
+                    Refresh();
+                    Thread.Sleep(1200);
+                    EndFight();
+                }
+                else
+                {
+                    enemy.SimpleAttack(character);
+                    if (character.Health <= 0)
+                    {
+                        UpdateStats();
+                        game.ChangeState(GameState.DEAD);
+                        lblEndFightMessage.Text = "You Were Defeated!";
+                        lblEndFightMessage.Visible = true;
+                        Refresh();
+                        Thread.Sleep(1200);
+                        EndFight();
+                        FrmGameOver frmGameOver = new FrmGameOver();
+                        frmGameOver.Show();
+                    }
+                    else
+                    {
+                        UpdateStats();
+                    }
+                }
+            }
+            else
+            {
+                lblEndFightMessage.Text = "You Can't Run From This!";
+                lblEndFightMessage.Visible = true;
+                Refresh();
+                Thread.Sleep(1000);
+                lblEndFightMessage.Visible = false;
+                Refresh();
+            }
     }
-
+         
     private void tmrPlayerDamage_Tick(object sender, EventArgs e) {
       lblPlayerDamage.Top -= 2;
       if (lblPlayerDamage.Top < 10) {
@@ -130,5 +190,50 @@ namespace GenericRPG {
         lblEnemyDamage.Top = 52;
       }
     }
-  }
+
+        private void lblEndFightMessage_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 3)
+            {
+                character.increaseHealth(10);
+                inventory.decreasePotionCount(3);
+                UpdateStats();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 2)
+            {
+                character.increaseStr(4);
+                inventory.decreasePotionCount(2);
+                UpdateStats();
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (inventory.PotionCount() >= 1)
+            {
+                character.increaseDef(3);
+                inventory.decreasePotionCount(1);
+                UpdateStats();
+            }
+        }
+    }
 }
